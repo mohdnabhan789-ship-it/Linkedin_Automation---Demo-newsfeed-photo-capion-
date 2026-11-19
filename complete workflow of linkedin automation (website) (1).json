@@ -1,0 +1,1313 @@
+{
+  "name": "complete workflow of linkedin automation (website)",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 22,
+              "triggerAtMinute": 41
+            },
+            {
+              "triggerAtHour": 22,
+              "triggerAtMinute": 46
+            },
+            {
+              "triggerAtHour": 22,
+              "triggerAtMinute": 50
+            }
+          ]
+        }
+      },
+      "id": "49e6a2e8-0082-4c3c-81ec-453c764f76f2",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        -240,
+        624
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://www.theverge.com/rss/ai-artificial-intelligence/index.xml",
+        "options": {}
+      },
+      "id": "2b5d92e1-4495-44ec-9200-da64ca7c49b2",
+      "name": "RSS Read",
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.2,
+      "position": [
+        128,
+        640
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://feeds.feedburner.com/TechCrunch/",
+        "options": {}
+      },
+      "id": "dc110ed6-a405-4f5a-a7d1-bf62517bcf79",
+      "name": "RSS Read1",
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.2,
+      "position": [
+        176,
+        432
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://arstechnica.com/ai/feed/",
+        "options": {}
+      },
+      "id": "e74e9d99-4d9d-43d6-a8be-cda6e6bdca4f",
+      "name": "RSS Read2",
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.2,
+      "position": [
+        448,
+        336
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://www.wired.com/feed/rss",
+        "options": {}
+      },
+      "id": "0a1f26bb-1ef0-4011-ba1a-9747de53ed5c",
+      "name": "RSS Read3",
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.2,
+      "position": [
+        656,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "path": "get-news",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "ddf39b7d-6a3e-4171-8c92-27aa3b455db9",
+      "name": "Webhook2",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        96
+      ],
+      "webhookId": "fc5f4d37-a4e3-44fc-b392-5ee1dcf2f38e"
+    },
+    {
+      "parameters": {
+        "path": "news-selection",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "361d1dc4-3963-42a1-8a76-974e0f257c7f",
+      "name": "Webhook3",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.2,
+      "position": [
+        1232,
+        0
+      ],
+      "webhookId": "87da890d-5baf-4983-b856-7ad6dfa218fa"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "=<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"UTF-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n<title>LinkedIn Automation | AI News Studio</title>\n<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n<link href=\"https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Orbitron:wght@500;700;900&display=swap\" rel=\"stylesheet\">\n<style>\n:root{--bg:#070b16;--panel:rgba(20,29,48,.72);--border:rgba(120,140,190,.18);--text:#edf2fa;--muted:#94a3b8;--accent:#8b5cf6;--accent2:#38bdf8;--green:#22c55e;--red:#ef4444;--amber:#f59e0b;--ease:cubic-bezier(.22,1,.36,1);--spring:cubic-bezier(.34,1.56,.64,1)}\n*{box-sizing:border-box;margin:0;padding:0}\nbody{font-family:\"Plus Jakarta Sans\",Inter,Arial,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}\nbutton,input,textarea{font:inherit}button{cursor:pointer}\n.aurora{position:fixed;inset:0;z-index:-1;overflow:hidden}\n.aurora i{position:absolute;width:46vw;height:46vw;border-radius:50%;filter:blur(110px);opacity:.28;animation:float 18s ease-in-out infinite alternate}\n.aurora i:nth-child(1){background:#6d28d9;top:-12vw;left:8vw}\n.aurora i:nth-child(2){background:#0ea5e9;bottom:-18vw;right:-6vw;animation-delay:-6s}\n.aurora i:nth-child(3){background:#db2777;top:30vh;left:45vw;width:26vw;height:26vw;opacity:.14;animation-delay:-11s}\n@keyframes float{to{transform:translate(6vw,4vh) scale(1.15)}}\n.app{display:flex;min-height:100vh}\n.sidebar{width:250px;background:rgba(9,14,27,.8);backdrop-filter:blur(18px);border-right:1px solid var(--border);padding:24px 14px;position:fixed;inset:0 auto 0 0;overflow-y:auto;z-index:5}\n.logo{display:flex;align-items:center;gap:11px;padding:0 10px 26px}\n.logo-icon{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,#8b5cf6,#38bdf8);display:grid;place-items:center;font-size:20px;box-shadow:0 0 24px #8b5cf666;animation:pulse 3s ease-in-out infinite}\n@keyframes pulse{50%{box-shadow:0 0 36px #38bdf877}}\n.logo h2{font-size:20px;letter-spacing:-.5px}.logo span{color:#a78bfa}\n.nav-label{color:#64748b;font-size:11px;font-weight:700;letter-spacing:1.2px;padding:14px 12px 8px}\n.nav-btn{position:relative;display:flex;width:100%;gap:12px;align-items:center;border:0;color:#9caec5;background:transparent;padding:11px 12px;border-radius:10px;text-align:left;margin-bottom:4px;font-size:14px;transition:.25s var(--ease)}\n.nav-btn:hover{color:#fff;background:#ffffff0d;transform:translateX(3px)}\n.nav-btn.active{color:#fff;background:linear-gradient(90deg,#8b5cf633,transparent)}\n.nav-btn.active::before{content:\"\";position:absolute;left:0;top:20%;bottom:20%;width:3px;border-radius:3px;background:var(--accent);box-shadow:0 0 12px var(--accent)}\n.nav-btn b{margin-left:auto;background:var(--accent);color:#fff;font-size:11px;border-radius:20px;padding:2px 8px;display:none}\n.nav-btn b.on{display:inline-block;animation:pop .4s var(--spring)}\n.sidebar-footer{margin-top:28px;padding:14px;border:1px solid var(--border);border-radius:12px;color:var(--muted);font-size:12px;line-height:1.6}\n.main{margin-left:250px;width:calc(100% - 250px);padding:30px}\n.topbar{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:28px}\n.topbar h1{font-size:26px;letter-spacing:-.6px}.topbar p{color:var(--muted);font-size:13px;margin-top:6px}\n.top-actions{display:flex;align-items:center;gap:12px}\n.status-pill{background:#0f2a23;color:#4ade80;border:1px solid #1d5943;border-radius:30px;padding:8px 13px;font-size:12px;display:flex;align-items:center;gap:7px}\n.status-pill::before{content:\"\";width:7px;height:7px;border-radius:50%;background:#4ade80;animation:blink 1.6s infinite}\n@keyframes blink{50%{opacity:.25;transform:scale(.7)}}\n.avatar{width:38px;height:38px;background:linear-gradient(135deg,#4c1d95,#6d5dfc);border-radius:50%;display:grid;place-items:center;font-weight:700}\n.page{display:none}.page.active{display:block;animation:pageIn .55s var(--ease)}\n@keyframes pageIn{from{opacity:0;transform:translateY(14px);filter:blur(6px)}}\n.sh{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:6px 0 16px}\n.sh h2{font-size:18px}.sh p{color:var(--muted);font-size:13px;margin-top:5px}\n.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-bottom:26px}\n.card{position:relative;background:var(--panel);backdrop-filter:blur(14px);border:1px solid var(--border);border-radius:16px;transition:transform .35s var(--ease),border-color .3s}\n.card::after{content:\"\";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .3s;background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),#8b5cf633,transparent 70%)}\n.card:hover{transform:translateY(-4px);border-color:#8b5cf666}.card:hover::after{opacity:1}\n.stat{padding:20px;animation:rise .6s var(--ease) both;animation-delay:calc(var(--i,0)*70ms)}\n.stat .ic{font-size:22px;margin-bottom:12px}.stat .l{color:var(--muted);font-size:13px}.stat .v{font-size:30px;font-weight:800;margin-top:8px}\n@keyframes rise{from{opacity:0;transform:translateY(22px) scale(.97)}}\n.panel{padding:20px;margin-bottom:20px}.panel:hover{transform:none}\n.muted{color:var(--muted)}.small{font-size:12px}\n.btn{border:0;border-radius:10px;padding:10px 15px;font-size:13px;font-weight:600;transition:.25s var(--ease);position:relative;overflow:hidden}\n.btn:active{transform:scale(.95)}\n.btn-primary{background:linear-gradient(135deg,#8b5cf6,#6d5dfc);color:#fff;box-shadow:0 6px 20px #8b5cf644}\n.btn-primary:hover{box-shadow:0 8px 28px #8b5cf688;transform:translateY(-2px)}\n.btn-primary::after{content:\"\";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,#ffffff44 50%,transparent 70%);transform:translateX(-120%)}\n.btn-primary:hover::after{transform:translateX(120%);transition:transform .7s}\n.btn-secondary{background:#ffffff0f;color:#e2e8f0;border:1px solid var(--border)}.btn-secondary:hover{background:#ffffff1c}\n.btn-success{background:#14532d99;color:#86efac;border:1px solid #166534}.btn-success:hover{background:#166534}\n.btn-danger{background:#451a1a99;color:#fca5a5;border:1px solid #7f1d1d}.btn-danger:hover{background:#7f1d1d}\n.btn:disabled{opacity:.45;cursor:not-allowed}\n.row{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}\n.news-grid,.post-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}\n.news{overflow:hidden;display:flex;flex-direction:column;animation:rise .6s var(--ease) both;animation-delay:calc(var(--i,0)*60ms)}\n.news-image{width:100%;height:170px;object-fit:cover;background:#1e293b;display:grid;place-items:center;color:#64748b;font-size:13px;transition:transform .6s var(--ease)}\n.news:hover .news-image{transform:scale(1.05)}\n.imgwrap{overflow:hidden}\n.nc{padding:17px;display:flex;flex-direction:column;flex:1}\n.src{color:#a78bfa;font-size:11px;font-weight:700;text-transform:uppercase;margin-bottom:8px}\n.news h3,.post h3{font-size:16px;line-height:1.45;margin-bottom:9px}\n.desc{color:var(--muted);font-size:13px;line-height:1.6;margin-bottom:12px}\n.nc .row{margin-top:auto}\n.field{margin-bottom:15px}.field label{display:block;color:#cbd5e1;font-size:13px;margin-bottom:8px}\n.field input,.field textarea,.editor{width:100%;background:#0a1222;color:#fff;border:1px solid var(--border);border-radius:10px;padding:12px;outline:none;transition:.25s}\n.field input:focus,.field textarea:focus,.editor:focus{border-color:var(--accent);box-shadow:0 0 0 4px #8b5cf626}\n.editor{min-height:200px;resize:vertical;line-height:1.7}\n.editor.writing{border-color:var(--accent)}\n.badge{display:inline-block;border-radius:30px;padding:4px 10px;font-size:11px;font-weight:700;text-transform:uppercase}\n.b-draft{background:#422d12;color:#fbbf24}.b-approved{background:#123d2a;color:#4ade80}.b-rejected{background:#451a1a;color:#fca5a5}\n.b-scheduled{background:#2e1a54;color:#c4b5fd}.b-published{background:#172554;color:#93c5fd}\n.tag{font-size:11px;color:var(--muted);margin-left:8px}\n.post{padding:16px;animation:rise .5s var(--ease) both;animation-delay:calc(var(--i,0)*50ms)}\n.post img{width:100%;max-height:180px;object-fit:cover;border-radius:10px;margin-bottom:12px}\n.post p{color:var(--muted);font-size:13px;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere}\n.when{margin-top:10px;font-size:12px;color:#c4b5fd}\n.board{display:grid;grid-template-columns:repeat(4,minmax(250px,1fr));gap:16px;overflow-x:auto;padding-bottom:10px}\n.col{background:#ffffff05;border:1px solid var(--border);border-radius:16px;padding:12px;min-height:300px}\n.col-h{display:flex;justify-content:space-between;align-items:center;padding:6px 6px 12px;font-weight:700;font-size:14px}\n.col-h span{background:#ffffff14;border-radius:20px;padding:2px 10px;font-size:12px}\n.col .post{margin-bottom:12px}\n.empty{color:var(--muted);text-align:center;padding:30px 15px;border:1px dashed var(--border);border-radius:14px;grid-column:1/-1;font-size:13px}\n.loading{color:var(--muted);padding:25px;text-align:center;grid-column:1/-1}\n.skel{height:300px;border-radius:16px;background:linear-gradient(100deg,#ffffff08 30%,#ffffff18 50%,#ffffff08 70%);background-size:200% 100%;animation:shim 1.2s infinite}\n@keyframes shim{to{background-position:-200% 0}}\n.photo-preview{display:none;max-width:100%;max-height:240px;border-radius:12px;margin-top:12px}\n.overlay{position:fixed;inset:0;background:#02050cc4;backdrop-filter:blur(8px);z-index:500;display:none;padding:20px;overflow-y:auto}\n.overlay.show{display:block;animation:fade .3s}\n@keyframes fade{from{opacity:0}}\n.modal{max-width:720px;margin:6vh auto;background:#0f1729;border:1px solid var(--border);border-radius:20px;padding:24px;box-shadow:0 30px 80px #000a;animation:modal .5s var(--spring)}\n@keyframes modal{from{opacity:0;transform:translateY(40px) scale(.92)}}\n.modal.sm{max-width:430px}\n.quick{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}\n#pop{position:fixed;inset:0;z-index:900;display:none;place-items:center;pointer-events:none}\n#pop.show{display:grid}\n.pop-card{background:linear-gradient(160deg,#1b2742,#0f1729);border:1px solid #8b5cf688;border-radius:24px;padding:34px 44px;text-align:center;box-shadow:0 0 80px #8b5cf655,0 30px 80px #000a;animation:popIn .6s var(--spring) both}\n.pop-card.out{animation:popOut .4s var(--ease) forwards}\n@keyframes popIn{from{opacity:0;transform:scale(.5) translateY(30px)}}\n@keyframes popOut{to{opacity:0;transform:scale(.9) translateY(-20px)}}\n.pop-card h3{font-size:22px;margin:14px 0 6px}.pop-card p{color:var(--muted);font-size:14px}\n.check{width:84px;height:84px;margin:auto}\n.check circle{fill:#22c55e22;stroke:#22c55e;stroke-width:3;stroke-dasharray:252;stroke-dashoffset:252;animation:draw .7s .1s var(--ease) forwards;transform-origin:center}\n.check path{fill:none;stroke:#4ade80;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:60;stroke-dashoffset:60;animation:draw .5s .6s var(--ease) forwards}\n@keyframes draw{to{stroke-dashoffset:0}}\n#confetti{position:fixed;inset:0;z-index:950;pointer-events:none}\n.toast{position:fixed;bottom:24px;right:24px;background:#18233b;border:1px solid #475569;border-radius:12px;padding:14px 18px;max-width:360px;font-size:13px;z-index:1000;transform:translateX(130%);transition:transform .5s var(--spring);overflow:hidden}\n.toast.show{transform:none}.toast.error{border-color:var(--red)}.toast.success{border-color:var(--green)}\n.toast::after{content:\"\";position:absolute;left:0;bottom:0;height:3px;width:100%;background:currentColor;opacity:.5;transform-origin:left}\n.toast.show::after{animation:bar 3.8s linear forwards}\n@keyframes bar{to{transform:scaleX(0)}}\n@keyframes pop{from{transform:scale(0)}}\n@media(max-width:1050px){.grid{grid-template-columns:repeat(2,1fr)}}\n@media(max-width:760px){.sidebar{width:70px;padding:18px 8px}.logo{justify-content:center;padding:0 0 22px}.logo h2,.nav-btn span:last-of-type,.nav-label,.sidebar-footer,.nav-btn b{display:none}.nav-btn{justify-content:center;font-size:19px}.main{margin-left:70px;width:calc(100% - 70px);padding:20px 14px}.news-grid,.post-list{grid-template-columns:1fr}.status-pill{display:none}}\n@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;transition-duration:.01ms!important}.aurora i{animation:none}}\n</style>\n<style id=\"scifi\">\n:root{--bg:#02040d;--panel:rgba(8,16,36,.66);--border:rgba(34,211,238,.24);--accent:#22d3ee;--accent2:#e879f9;--muted:#8fa6c4}\nbody{background:radial-gradient(ellipse at 50% -10%,#0b1d4a 0%,#02040d 62%)}\nbody::before{content:\"\";position:fixed;inset:0;z-index:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(255,255,255,.025) 0 1px,transparent 1px 3px)}\n.aurora i:nth-child(1){background:#0891b2}.aurora i:nth-child(2){background:#7c3aed}.aurora i:nth-child(3){background:#e11d48}\n.app{position:relative;z-index:1}\n.floor{position:fixed;left:-50%;right:-50%;bottom:0;height:46vh;z-index:0;pointer-events:none;background:linear-gradient(rgba(34,211,238,.2) 1px,transparent 1px),linear-gradient(90deg,rgba(34,211,238,.2) 1px,transparent 1px);background-size:64px 64px;transform:perspective(520px) rotateX(64deg);transform-origin:bottom;-webkit-mask-image:linear-gradient(to top,#000,transparent);mask-image:linear-gradient(to top,#000,transparent);animation:grid 5s linear infinite}\n@keyframes grid{to{background-position:0 64px}}\nh1,h2,.logo h2,.stat .v,.pop-card h3,.nav-label{font-family:Orbitron,\"Plus Jakarta Sans\",sans-serif;letter-spacing:.05em}\n.topbar h1{background:linear-gradient(90deg,#fff,#67e8f9 55%,#e879f9);-webkit-background-clip:text;background-clip:text;color:transparent;text-transform:uppercase;font-size:24px}\n.sh h2{font-size:15px;text-transform:uppercase;color:#a5f3fc}\n.stat .v{color:#67e8f9;text-shadow:0 0 18px rgba(34,211,238,.55)}\n.sidebar{background:rgba(2,6,18,.82);border-right:1px solid var(--border);box-shadow:0 0 40px rgba(34,211,238,.08)}\n.logo-icon{background:linear-gradient(135deg,#06b6d4,#7c3aed);box-shadow:0 0 26px #22d3ee88;border-radius:50%}\n.nav-btn.active{background:linear-gradient(90deg,#22d3ee30,transparent)}\n.nav-btn.active::before{background:var(--accent);box-shadow:0 0 14px var(--accent)}\n.nav-btn b{background:var(--accent2)}\n.card{border:0;border-radius:4px;background:linear-gradient(160deg,rgba(14,30,66,.72),rgba(4,10,26,.8));box-shadow:inset 0 0 0 1px var(--border);clip-path:polygon(14px 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%,0 14px)}\n.card:hover{border:0;box-shadow:inset 0 0 0 1px rgba(34,211,238,.6),inset 0 0 30px rgba(34,211,238,.08)}\n.card::before{content:\"\";position:absolute;top:0;right:0;width:22px;height:22px;border-top:2px solid var(--accent);border-right:2px solid var(--accent);z-index:3;pointer-events:none}\n.card::after{background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),#22d3ee26,transparent 70%)}\n.imgwrap{position:relative}\n.imgwrap::after{content:\"\";position:absolute;inset:0;pointer-events:none;background:linear-gradient(transparent 55%,rgba(2,4,13,.85)),repeating-linear-gradient(0deg,rgba(34,211,238,.08) 0 1px,transparent 1px 3px)}\n.news-image{filter:saturate(1.15) contrast(1.05)}\n.src{color:var(--accent);letter-spacing:.14em}\n.btn{border-radius:3px;text-transform:uppercase;letter-spacing:.08em;font-size:11.5px}\n.btn-primary{background:linear-gradient(135deg,#0891b2,#7c3aed);box-shadow:0 0 20px #22d3ee44}\n.btn-primary:hover{box-shadow:0 0 30px #22d3ee99}\n.field input:focus,.field textarea:focus,.editor:focus{border-color:var(--accent);box-shadow:0 0 0 4px #22d3ee26}\n.field input,.field textarea,.editor{background:#050d1f;border-radius:4px}\n.modal{background:linear-gradient(160deg,#0b1633,#050b1c);border:1px solid rgba(34,211,238,.4);border-radius:6px;box-shadow:0 0 60px rgba(34,211,238,.18),0 30px 80px #000a}\n.pop-card{border-color:#22d3ee88;box-shadow:0 0 80px #22d3ee55,0 30px 80px #000a}\n.col{border-radius:6px}\n.when{color:#67e8f9}\n.status-pill{border-color:#0e7490;background:#06242d;color:#67e8f9}\n.status-pill::before{background:#67e8f9}\n.avatar{background:linear-gradient(135deg,#0891b2,#7c3aed)}\n.main{padding-bottom:70px}\n/* flying newspapers */\n.sky{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;perspective:900px}\n.paper{position:absolute;left:0;top:0;width:var(--w);height:calc(var(--w)*1.25);padding:calc(var(--w)*.08);border:1px solid rgba(125,240,255,.55);background:linear-gradient(145deg,rgba(34,211,238,.18),rgba(124,58,237,.14));box-shadow:0 0 26px rgba(34,211,238,.3),inset 0 0 18px rgba(34,211,238,.12);opacity:var(--o);filter:blur(var(--b));animation:fly var(--d) linear var(--dl) infinite;will-change:transform}\n.paper b{display:block;font:700 calc(var(--w)*.1)/1.2 Orbitron,sans-serif;color:#b6f4ff;border-bottom:1px solid rgba(125,240,255,.6);padding-bottom:4px;margin-bottom:6px;white-space:nowrap;overflow:hidden}\n.paper i{display:block;height:calc(var(--w)*.34);margin-bottom:6px;background:linear-gradient(135deg,rgba(232,121,249,.5),rgba(34,211,238,.4))}\n.paper u{display:block;height:3px;margin:5px 0;background:rgba(182,244,255,.45)}\n.paper u:nth-of-type(2){width:80%}.paper u:nth-of-type(4){width:60%}\n@keyframes fly{0%{transform:translate3d(var(--x0),var(--y0),0) rotateZ(-8deg) rotateY(0) rotateX(20deg)}100%{transform:translate3d(var(--x1),var(--y1),0) rotateZ(22deg) rotateY(540deg) rotateX(-20deg)}}\n/* multilingual breaking-news ticker */\n.ticker{position:fixed;left:250px;right:0;bottom:0;height:36px;z-index:6;overflow:hidden;background:rgba(2,6,18,.9);border-top:1px solid var(--border);display:flex;align-items:center}\n.ticker .tag2{flex:none;background:linear-gradient(90deg,#e11d48,#be123c);color:#fff;font:700 11px Orbitron,sans-serif;padding:0 16px;height:100%;display:grid;place-items:center;letter-spacing:.16em;z-index:1}\n.ticker .track{display:flex;white-space:nowrap;animation:tick 70s linear infinite;color:#a5f3fc;font-size:12px;letter-spacing:.05em}\n.ticker .track span{padding:0 24px}\n.ticker .track span::before{content:\"◆\";color:#e879f9;margin-right:24px}\n@keyframes tick{to{transform:translateX(-50%)}}\n@media(max-width:760px){.ticker{left:70px}}\n@media(prefers-reduced-motion:reduce){.sky,.floor{display:none}}\n/* ===== Iron-Man HUD layer ===== */\n:root{--gold:#fbbf24}\nhtml{scrollbar-width:thin;scrollbar-color:#22d3ee55 transparent}\n.sidebar{scrollbar-width:none;-ms-overflow-style:none;overflow-x:hidden;background-color:rgba(2,6,18,.84);background-image:linear-gradient(180deg,transparent,rgba(34,211,238,.13),transparent);background-size:100% 220px;background-repeat:no-repeat;animation:scanY 6s linear infinite,slideIn .9s var(--ease) both}\n.sidebar::-webkit-scrollbar{display:none;width:0}\n@keyframes scanY{from{background-position:0 -220px}to{background-position:0 110vh}}\n@keyframes slideIn{from{transform:translateX(-100%);opacity:0}}\n.reactor{position:relative;width:44px;height:44px;flex:none;border-radius:50%;background:radial-gradient(circle,#fff 0 12%,#7ff 14%,#06b6d4 38%,#0e3a52 62%,#021018 100%);box-shadow:0 0 22px #22d3eeaa,0 0 50px #22d3ee55;animation:beat 2.4s ease-in-out infinite}\n.reactor i{position:absolute;inset:3px;border-radius:50%;border:2px dashed rgba(165,243,252,.85);animation:spin 6s linear infinite}\n.reactor i:nth-child(2){inset:10px;border:2px solid rgba(34,211,238,.95);border-top-color:transparent;border-bottom-color:transparent;animation:spin 3s linear infinite reverse}\n.reactor i:nth-child(3){inset:-6px;border:1px dotted rgba(251,191,36,.9);animation:spin 14s linear infinite}\n.reactor b{position:absolute;inset:17px;border-radius:50%;background:#fff;box-shadow:0 0 14px #fff,0 0 28px #22d3ee}\n@keyframes spin{to{transform:rotate(360deg)}}\n@keyframes beat{50%{box-shadow:0 0 34px #22d3ee,0 0 80px #22d3ee88}}\n.logo{gap:14px}\n.logo h2{font-size:15px;line-height:1.15;letter-spacing:.06em;text-transform:uppercase;color:#e0f2fe}\n.logo h2 span{display:block;font-size:11px;letter-spacing:.34em;color:var(--gold);margin-top:4px;text-shadow:0 0 10px #fbbf2488}\n.nav-label{color:#fbbf24b0}\n.nav-btn{overflow:hidden;opacity:0;animation:navIn .7s var(--ease) forwards;animation-delay:calc(var(--n,0)*70ms + .35s)}\n@keyframes navIn{from{opacity:0;transform:translateX(-26px)}to{opacity:1;transform:none}}\n.nav-btn::after{content:\"\";position:absolute;inset:0;border-radius:10px;pointer-events:none;background:linear-gradient(110deg,transparent 30%,rgba(34,211,238,.28) 50%,transparent 70%);transform:translateX(-115%);transition:transform .7s var(--ease)}\n.nav-btn:hover::after{transform:translateX(115%)}\n.nav-btn span:first-child{display:inline-block;transition:transform .45s var(--spring),color .3s,text-shadow .3s}\n.nav-btn:hover span:first-child{transform:scale(1.4) rotate(14deg);color:#67e8f9}\n.nav-btn.active span:first-child{color:var(--gold);text-shadow:0 0 12px var(--gold)}\n.sidebar-footer{background:rgba(34,211,238,.05);border-color:var(--border)}\n.jarvis{display:flex;align-items:center;gap:8px;font:700 10px Orbitron,sans-serif;letter-spacing:.14em;color:#67e8f9;margin-bottom:10px}\n.jarvis .dot{width:7px;height:7px;border-radius:50%;background:#22c55e;box-shadow:0 0 10px #22c55e;animation:blink 1.4s infinite}\n.bars{display:flex;align-items:flex-end;gap:3px;height:26px;margin-top:12px}\n.bars i{flex:1;height:100%;background:linear-gradient(#22d3ee,#0891b2);transform-origin:bottom;animation:eq 1.2s ease-in-out infinite}\n.bars i:nth-child(2){animation-delay:-.2s}.bars i:nth-child(3){animation-delay:-.45s}.bars i:nth-child(4){animation-delay:-.7s}.bars i:nth-child(5){animation-delay:-.35s}.bars i:nth-child(6){animation-delay:-.9s}\n@keyframes eq{0%,100%{transform:scaleY(.15)}50%{transform:scaleY(1)}}\n.sh h2::before{content:\"\";display:inline-block;width:8px;height:8px;margin-right:10px;background:var(--gold);box-shadow:0 0 10px var(--gold);transform:rotate(45deg)}\n#net{position:fixed;inset:0;z-index:0;pointer-events:none}\n.hud{position:fixed;right:-14vh;top:50%;width:74vh;height:74vh;margin-top:-37vh;z-index:0;pointer-events:none;opacity:.4}\n.hud i{position:absolute;inset:0;border-radius:50%;border:1px dashed rgba(34,211,238,.6);animation:spin 45s linear infinite}\n.hud i:nth-child(2){inset:9%;border:6px double rgba(251,191,36,.55);border-left-color:transparent;border-right-color:transparent;animation:spin 26s linear infinite reverse}\n.hud i:nth-child(3){inset:19%;border:0;background:repeating-conic-gradient(rgba(34,211,238,.7) 0 1deg,transparent 1deg 6deg);-webkit-mask:radial-gradient(circle,transparent 66%,#000 67%,#000 74%,transparent 75%);mask:radial-gradient(circle,transparent 66%,#000 67%,#000 74%,transparent 75%);animation:spin 70s linear infinite}\n.hud i:nth-child(4){inset:34%;border:2px dotted rgba(232,121,249,.7);animation:spin 18s linear infinite reverse}\n.hud::after{content:\"\";position:absolute;inset:19%;border-radius:50%;background:conic-gradient(from 0deg,transparent 0 290deg,rgba(34,211,238,.45) 360deg);animation:spin 5s linear infinite}\n.beam{position:fixed;left:0;right:0;top:-160px;height:160px;z-index:0;pointer-events:none;background:linear-gradient(transparent,rgba(34,211,238,.08),transparent);animation:beam 8s linear infinite}\n@keyframes beam{to{top:100%}}\n.frame{position:fixed;inset:10px 10px 46px 262px;z-index:7;pointer-events:none}\n.frame i{position:absolute;width:30px;height:30px;border:2px solid rgba(251,191,36,.8);filter:drop-shadow(0 0 4px #fbbf24)}\n.frame i:nth-child(1){top:0;left:0;border-right:0;border-bottom:0}.frame i:nth-child(2){top:0;right:0;border-left:0;border-bottom:0}\n.frame i:nth-child(3){bottom:0;left:0;border-right:0;border-top:0}.frame i:nth-child(4){bottom:0;right:0;border-left:0;border-top:0}\n@media(max-width:760px){.frame{left:82px}}\n.card:hover{transform:perspective(900px) translateY(-6px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg))}\n.card.panel:hover{transform:none}\n/* flying LinkedIn / news / photo objects */\n.chip{position:absolute;left:0;top:0;display:flex;align-items:center;justify-content:center;flex-direction:column;color:#fff;font-family:Orbitron,sans-serif;opacity:var(--o);filter:blur(var(--b));animation:fly var(--d) linear var(--dl) infinite;will-change:transform}\n.chip::before{content:\"\";position:absolute;right:100%;top:50%;width:150px;height:2px;background:linear-gradient(90deg,transparent,rgba(34,211,238,.85))}\n.chip.li{width:var(--w);height:var(--w);border-radius:18%;background:linear-gradient(145deg,#0a66c2,#0ea5e9);border:1px solid #7dd3fc;box-shadow:0 0 30px #0a66c2aa,inset 0 0 12px #ffffff55;font:900 calc(var(--w)*.5)/1 Arial,sans-serif}\n.chip.nl{width:calc(var(--w)*1.7);padding:10px;align-items:stretch;border-radius:8px;background:rgba(10,102,194,.24);border:1px solid #38bdf8;box-shadow:0 0 24px #0a66c288;font-size:calc(var(--w)*.13)}\n.chip.nl b{display:flex;align-items:center;gap:6px;letter-spacing:.1em}\n.chip.nl em{font:900 1em Arial,sans-serif;background:#0a66c2;border-radius:3px;padding:1px 5px}\n.chip.nl u{display:block;height:3px;margin-top:5px;background:rgba(186,230,253,.6)}\n.chip.ph{width:calc(var(--w)*1.3);height:var(--w);border-radius:6px;border:2px solid #f0abfc;background:radial-gradient(circle at 72% 30%,#fde68a 0 9%,transparent 10%),linear-gradient(transparent 58%,#1e1b4b 58%),linear-gradient(#7c3aed,#db2777);box-shadow:0 0 26px #e879f988;font-size:calc(var(--w)*.1);letter-spacing:.12em;justify-content:flex-end;padding-bottom:4px}\n.chip.ph span{font-size:calc(var(--w)*.34);margin-bottom:2px}\n/* boot screen */\n#boot{position:fixed;inset:0;z-index:2000;background:radial-gradient(circle at 50% 45%,#07203a,#01030a 70%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;transition:opacity .9s,transform .9s}\n#boot.gone{opacity:0;transform:scale(1.25);pointer-events:none}\n#boot .reactor{transform:scale(2.6);margin-bottom:46px}\n#boot h2{font-size:22px;letter-spacing:.35em;color:#e0f2fe;text-transform:uppercase;text-align:center}\n#boot p{font:600 12px Orbitron,sans-serif;letter-spacing:.25em;color:var(--gold);min-height:16px;text-align:center}\n.loadbar{width:min(320px,70vw);height:3px;background:#0b2a3d;overflow:hidden}\n.loadbar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#22d3ee,#fbbf24);box-shadow:0 0 12px #22d3ee;animation:load 2.4s ease-out forwards}\n@keyframes load{to{width:100%}}\n@media(prefers-reduced-motion:reduce){.hud,.beam,#net,#boot{display:none}}\n/* ===== Admin-dashboard look (glass, soft cards, kanban) ===== */\n:root{--accent:#3b82f6}\n.hud{opacity:.18}.frame{display:none}.floor{opacity:.45}\n.orb{position:fixed;border-radius:50%;z-index:0;pointer-events:none}\n.orb.o1{top:-110px;right:14%;width:230px;height:230px;background:radial-gradient(circle at 35% 30%,#fde68a,#f59e0b 45%,#92400e 85%);box-shadow:0 0 120px #f59e0b55;animation:orbf 10s ease-in-out infinite alternate}\n.orb.o2{bottom:-120px;right:6%;width:300px;height:300px;background:radial-gradient(circle at 35% 30%,#5eead4,#0d9488 55%,#134e4a 90%);box-shadow:0 0 140px #14b8a655;animation:orbf 12s ease-in-out infinite alternate-reverse}\n@keyframes orbf{to{transform:translate(-30px,26px) scale(1.06)}}\n.sh h2,.topbar h1,.stat .v{font-family:\"Plus Jakarta Sans\",sans-serif;text-transform:none;letter-spacing:-.02em}\n.topbar h1{background:none;-webkit-text-fill-color:#fff;color:#fff;font-size:30px;font-weight:800}\n.sh h2{font-size:17px;color:#fff}.sh h2::before{display:none}\n.stat .v{color:#fff;text-shadow:none}\n.greet{display:flex;align-items:center;gap:8px;color:#8fa6c4;font-size:12px;margin-bottom:6px}\n.gdot{width:7px;height:7px;border-radius:50%;background:#22c55e;box-shadow:0 0 10px #22c55e}\n.nav-label{font-family:\"Plus Jakarta Sans\",sans-serif;letter-spacing:.14em;color:#64748b}\n.nav-btn{border-radius:12px}\n.nav-btn.active{background:linear-gradient(135deg,#2563eb,#3b82f6);color:#fff;box-shadow:0 8px 24px #2563eb55}\n.nav-btn.active::before{display:none}\n.nav-btn.active span:first-child{color:#fff;text-shadow:none}\n.card{clip-path:none;border-radius:18px;background:linear-gradient(160deg,rgba(20,30,56,.72),rgba(8,14,30,.78));box-shadow:inset 0 0 0 1px rgba(255,255,255,.07);backdrop-filter:blur(18px)}\n.card::before{display:none}\n.card:hover{box-shadow:inset 0 0 0 1px rgba(96,165,250,.5),0 16px 40px rgba(0,0,0,.35)}\n.btn{text-transform:none;letter-spacing:0;border-radius:10px;font-size:12.5px}\n.btn-primary{background:linear-gradient(135deg,#2563eb,#3b82f6);box-shadow:0 6px 20px #2563eb55}\n.btn-primary:hover{box-shadow:0 8px 28px #3b82f6aa}\n.src{color:#60a5fa;letter-spacing:.1em}\n.search{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.09);border-radius:12px;padding:0 12px;height:38px;transition:.3s var(--ease)}\n.search:focus-within{border-color:#3b82f6;box-shadow:0 0 0 4px #3b82f626;width:260px}\n.search span{color:#94a3b8;font-size:17px}\n.search input{background:none;border:0;outline:0;color:#fff;width:150px;font-size:13px;transition:width .3s}\n.search:focus-within input{width:200px}\n.side-toggle{display:flex;justify-content:space-between;align-items:center;margin-top:22px;padding:10px 12px;color:#9caec5;font-size:13px}\n.sw{position:relative;width:38px;height:22px;cursor:pointer}.sw input{display:none}\n.sw i{position:absolute;inset:0;border-radius:20px;background:#334155;transition:.3s}\n.sw i::after{content:\"\";position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;transition:transform .35s var(--spring)}\n.sw input:checked+i{background:#22c55e}.sw input:checked+i::after{transform:translateX(16px)}\n.usercard{display:flex;gap:10px;align-items:center;margin:4px 0 14px;padding:10px 12px;border:1px solid rgba(255,255,255,.07);border-radius:14px;background:rgba(255,255,255,.04)}\n.usercard b{display:block;font-size:13px}.usercard small{color:#8fa6c4;font-size:11px}\n.board{gap:18px}\n.col{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:20px;padding:14px;transition:background .25s,box-shadow .25s}\n.col.over{background:rgba(59,130,246,.09);box-shadow:0 0 0 2px #3b82f6 inset}\n.col-h{padding:2px 2px 14px;align-items:flex-start}\n.col-h>div{font-size:14px;display:flex;flex-wrap:wrap;align-items:center;gap:8px}\n.col-h small{flex-basis:100%;color:#8fa6c4;font-weight:500;font-size:11.5px;margin-left:16px}\n.dot{width:8px;height:8px;border-radius:50%;display:inline-block}\n.d-Draft{background:#f59e0b;box-shadow:0 0 8px #f59e0b}.d-Approved{background:#22c55e;box-shadow:0 0 8px #22c55e}\n.d-Scheduled{background:#a78bfa;box-shadow:0 0 8px #a78bfa}.d-Published{background:#3b82f6;box-shadow:0 0 8px #3b82f6}\n.col .post{padding:12px;border-radius:14px;cursor:grab;transition:transform .3s var(--spring),opacity .2s,box-shadow .3s}\n.col .post:active{cursor:grabbing}\n.col .post img{max-height:96px;pointer-events:none}\n.col .post p{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}\n.col .post h3{font-size:14px}\n.post.dragging{opacity:.45;transform:scale(1.04) rotate(-2deg)!important}\n.col .empty{border-radius:14px;padding:26px 10px}\n/* ===== Theme switch button (both themes) ===== */\n.rail-btn{display:flex;gap:12px;align-items:center;width:100%;border:0;background:transparent;color:#9caec5;padding:11px 12px;border-radius:12px;font-size:14px;margin-top:10px;transition:.25s var(--ease)}\n.rail-btn:hover{background:#ffffff0f;color:#fff}.rail-btn em{font-style:normal}\n.pillnav{display:none}\nbody,.card{transition:background-color .5s,color .5s}\n/* ===== MINIMAL LIGHT THEME (like the \"Manage\" dashboard) ===== */\nbody.minimal{--muted:#6b7280;--border:#e6e8ee;background:#eef0f4;color:#0f172a}\nbody.minimal::before,body.minimal .aurora,body.minimal .floor,body.minimal #net,body.minimal .hud,body.minimal .beam,body.minimal .orb,body.minimal .sky,body.minimal .frame,body.minimal #boot,body.minimal .ticker{display:none}\nhtml:has(body.minimal){scrollbar-color:#cbd5e1 transparent}\n/* left icon rail */\nbody.minimal .sidebar{width:64px;padding:16px 8px;background:#fff;border-right:1px solid #e8eaf0;box-shadow:none;animation:none;background-image:none;backdrop-filter:none}\nbody.minimal .logo{justify-content:center;padding:0 0 18px}\nbody.minimal .logo h2,body.minimal .nav-label,body.minimal .sidebar-footer,body.minimal .nav-btn span:last-of-type,body.minimal .nav-btn b,body.minimal .side-toggle span,body.minimal .rail-btn em,body.minimal .usercard>div:last-child{display:none}\nbody.minimal .reactor{width:38px;height:38px;border-radius:12px;background:#0f172a;box-shadow:none;animation:none}\nbody.minimal .reactor i,body.minimal .reactor b{display:none}\nbody.minimal .reactor::after{content:\"in\";display:grid;place-items:center;height:100%;color:#fff;font:800 17px Arial,sans-serif}\nbody.minimal .nav-btn{justify-content:center;padding:12px 0;font-size:17px;color:#6b7280;opacity:1;animation:none;border-radius:12px}\nbody.minimal .nav-btn:hover{background:#f1f3f7;color:#0f172a;transform:none}\nbody.minimal .nav-btn::after{display:none}\nbody.minimal .nav-btn.active{background:#0f172a;color:#fff;box-shadow:0 6px 16px rgba(15,23,42,.25)}\nbody.minimal .nav-btn.active span:first-child{color:#fff}\nbody.minimal .rail-btn{justify-content:center;padding:12px 0;color:#6b7280;font-size:17px}\nbody.minimal .rail-btn:hover{background:#f1f3f7;color:#0f172a}\nbody.minimal .side-toggle{justify-content:center;padding:12px 0}\nbody.minimal .usercard{justify-content:center;padding:8px 0;border:0;background:none;margin:0}\nbody.minimal .main{margin-left:64px;width:calc(100% - 64px);padding:22px 32px 40px}\n/* top pill navigation */\nbody.minimal .pillnav{display:flex;gap:4px;width:max-content;max-width:100%;overflow-x:auto;scrollbar-width:none;margin-bottom:24px;padding:5px;background:#fff;border:1px solid #e6e8ee;border-radius:999px;box-shadow:0 1px 2px rgba(15,23,42,.04)}\nbody.minimal .pillnav::-webkit-scrollbar{display:none}\n.pill{border:0;background:transparent;color:#4b5563;padding:8px 18px;border-radius:999px;font-size:13px;font-weight:600;white-space:nowrap;transition:background .3s var(--ease),color .3s,transform .3s var(--spring)}\n.pill:hover{background:#f1f3f7;transform:translateY(-1px)}\n.pill.active{background:#0f172a;color:#fff;box-shadow:0 4px 12px rgba(15,23,42,.25)}\n/* page header + text */\nbody.minimal .topbar h1{-webkit-text-fill-color:#0f172a;color:#0f172a;font-size:28px}\nbody.minimal .sh h2,body.minimal .stat .v{color:#0f172a}\nbody.minimal .greet,body.minimal .topbar p{color:#6b7280}\nbody.minimal .field label{color:#374151}\n/* cards */\nbody.minimal .card{background:#fff;backdrop-filter:none;border-radius:20px;box-shadow:0 1px 2px rgba(15,23,42,.04),0 0 0 1px #e8eaf0;transition:transform .35s var(--spring),box-shadow .35s,background-color .5s}\nbody.minimal .card:hover{transform:translateY(-5px);box-shadow:0 16px 36px rgba(15,23,42,.10),0 0 0 1px #dfe3ec}\nbody.minimal .card.panel:hover{transform:none;box-shadow:0 1px 2px rgba(15,23,42,.04),0 0 0 1px #e8eaf0}\nbody.minimal .card::after{background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),rgba(15,23,42,.045),transparent 70%)}\nbody.minimal .news-image{background:#e8ebf2;color:#9aa3b2;filter:none}\nbody.minimal .imgwrap::after{display:none}\nbody.minimal .src{color:#2563eb}\nbody.minimal .skel{background:linear-gradient(100deg,#0000000a 30%,#00000014 50%,#0000000a 70%);background-size:200% 100%}\n/* buttons, inputs, badges */\nbody.minimal .btn-primary{background:#0f172a;color:#fff;box-shadow:0 6px 16px rgba(15,23,42,.22)}\nbody.minimal .btn-primary:hover{box-shadow:0 10px 24px rgba(15,23,42,.32)}\nbody.minimal .btn-secondary{background:#fff;color:#111827;border:1px solid #e3e6ee}\nbody.minimal .btn-secondary:hover{background:#f3f4f6}\nbody.minimal .btn-success{background:#dcfce7;color:#166534;border-color:#bbf7d0}body.minimal .btn-success:hover{background:#bbf7d0}\nbody.minimal .btn-danger{background:#fee2e2;color:#991b1b;border-color:#fecaca}body.minimal .btn-danger:hover{background:#fecaca}\nbody.minimal .field input,body.minimal .field textarea,body.minimal .editor{background:#f6f7fa;color:#0f172a;border-color:#e3e6ee}\nbody.minimal .field input:focus,body.minimal .field textarea:focus,body.minimal .editor:focus{border-color:#0f172a;box-shadow:0 0 0 4px rgba(15,23,42,.08)}\nbody.minimal .b-draft{background:#fef3c7;color:#92400e}body.minimal .b-approved{background:#dcfce7;color:#166534}\nbody.minimal .b-rejected{background:#fee2e2;color:#991b1b}body.minimal .b-scheduled{background:#ede9fe;color:#5b21b6}\nbody.minimal .b-published{background:#dbeafe;color:#1e40af}\nbody.minimal .when{color:#6d28d9}\nbody.minimal .status-pill{background:#dcfce7;color:#166534;border-color:#bbf7d0}\nbody.minimal .status-pill::before{background:#22c55e}\nbody.minimal .avatar{background:#0f172a;color:#fff}\nbody.minimal .search{background:#fff;border-color:#e3e6ee}\nbody.minimal .search input{color:#0f172a}body.minimal .search span{color:#9aa3b2}\nbody.minimal .search:focus-within{border-color:#0f172a;box-shadow:0 0 0 4px rgba(15,23,42,.08)}\nbody.minimal .sw i{background:#d1d5db}body.minimal .sw input:checked+i{background:#22c55e}\n/* kanban */\nbody.minimal .col{background:#f7f8fb;border-color:#e8eaf0}\nbody.minimal .col.over{background:#eff6ff;box-shadow:0 0 0 2px #3b82f6 inset}\nbody.minimal .col-h span{background:#e8ebf2;color:#374151}\nbody.minimal .empty{border-color:#d9dde7;color:#6b7280}\nbody.minimal .post.dragging{box-shadow:0 20px 40px rgba(15,23,42,.2)}\n/* popups */\nbody.minimal .overlay{background:rgba(15,23,42,.45)}\nbody.minimal .modal{background:#fff;border-color:#e6e8ee;box-shadow:0 30px 80px rgba(15,23,42,.25)}\nbody.minimal .pop-card{background:#fff;border-color:#e6e8ee;box-shadow:0 30px 80px rgba(15,23,42,.25)}\nbody.minimal .toast{background:#0f172a;color:#fff;border-color:#334155}\n/* ===== DARK version of the same minimal layout ===== */\nbody.minimal,body.minimal .sidebar,body.minimal .pillnav,body.minimal .col,body.minimal .search,body.minimal .modal,body.minimal .pill,body.minimal .nav-btn{transition:background-color .45s,border-color .45s,color .45s,box-shadow .45s,transform .3s var(--spring)}\nhtml:has(body.dark){scrollbar-color:#2a2f3c transparent}\nbody.minimal.dark{--muted:#9aa3b2;--border:#232733;background:#0b0d12;color:#f3f4f6}\nbody.minimal.dark .sidebar{background:#11141b;border-right-color:#1e222c}\nbody.minimal.dark .reactor{background:#fff}\nbody.minimal.dark .reactor::after{color:#0b0d12}\nbody.minimal.dark .nav-btn,body.minimal.dark .rail-btn{color:#9aa3b2}\nbody.minimal.dark .nav-btn:hover,body.minimal.dark .rail-btn:hover{background:#1b1f29;color:#fff}\nbody.minimal.dark .nav-btn.active{background:#fff;color:#0b0d12;box-shadow:0 6px 16px rgba(0,0,0,.5)}\nbody.minimal.dark .nav-btn.active span:first-child{color:#0b0d12}\nbody.minimal.dark .pillnav{background:#14171f;border-color:#232733;box-shadow:none}\nbody.minimal.dark .pill{color:#9aa3b2}\nbody.minimal.dark .pill:hover{background:#1d212b;color:#fff}\nbody.minimal.dark .pill.active{background:#fff;color:#0b0d12;box-shadow:0 4px 14px rgba(0,0,0,.5)}\nbody.minimal.dark .topbar h1{-webkit-text-fill-color:#f3f4f6;color:#f3f4f6}\nbody.minimal.dark .sh h2,body.minimal.dark .stat .v{color:#f3f4f6}\nbody.minimal.dark .greet,body.minimal.dark .topbar p{color:#9aa3b2}\nbody.minimal.dark .field label{color:#cbd5e1}\nbody.minimal.dark .card{background:#14171f;box-shadow:0 1px 2px rgba(0,0,0,.4),0 0 0 1px #232733}\nbody.minimal.dark .card:hover{box-shadow:0 16px 36px rgba(0,0,0,.55),0 0 0 1px #343a4a}\nbody.minimal.dark .card.panel:hover{box-shadow:0 1px 2px rgba(0,0,0,.4),0 0 0 1px #232733}\nbody.minimal.dark .card::after{background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.05),transparent 70%)}\nbody.minimal.dark .news-image{background:#1c202a;color:#6b7280}\nbody.minimal.dark .src{color:#60a5fa}\nbody.minimal.dark .skel{background:linear-gradient(100deg,#ffffff08 30%,#ffffff14 50%,#ffffff08 70%);background-size:200% 100%}\nbody.minimal.dark .btn-primary{background:#fff;color:#0b0d12;box-shadow:0 6px 16px rgba(255,255,255,.12)}\nbody.minimal.dark .btn-primary:hover{box-shadow:0 10px 24px rgba(255,255,255,.22)}\nbody.minimal.dark .btn-secondary{background:#14171f;color:#e5e7eb;border-color:#2a2f3c}\nbody.minimal.dark .btn-secondary:hover{background:#1d212b}\nbody.minimal.dark .btn-success{background:#0f2a1a;color:#86efac;border-color:#166534}body.minimal.dark .btn-success:hover{background:#14532d}\nbody.minimal.dark .btn-danger{background:#2a1214;color:#fca5a5;border-color:#7f1d1d}body.minimal.dark .btn-danger:hover{background:#451a1a}\nbody.minimal.dark .field input,body.minimal.dark .field textarea,body.minimal.dark .editor{background:#0f1218;color:#f3f4f6;border-color:#232733}\nbody.minimal.dark .field input:focus,body.minimal.dark .field textarea:focus,body.minimal.dark .editor:focus{border-color:#fff;box-shadow:0 0 0 4px rgba(255,255,255,.1)}\nbody.minimal.dark .b-draft{background:#3a2a0c;color:#fbbf24}body.minimal.dark .b-approved{background:#0f2a1a;color:#4ade80}\nbody.minimal.dark .b-rejected{background:#2a1214;color:#fca5a5}body.minimal.dark .b-scheduled{background:#251a45;color:#c4b5fd}\nbody.minimal.dark .b-published{background:#12254a;color:#93c5fd}\nbody.minimal.dark .when{color:#c4b5fd}\nbody.minimal.dark .status-pill{background:#0f2a1a;color:#4ade80;border-color:#166534}\nbody.minimal.dark .avatar{background:#fff;color:#0b0d12}\nbody.minimal.dark .search{background:#14171f;border-color:#232733}\nbody.minimal.dark .search input{color:#f3f4f6}body.minimal.dark .search span{color:#6b7280}\nbody.minimal.dark .search:focus-within{border-color:#fff;box-shadow:0 0 0 4px rgba(255,255,255,.1)}\nbody.minimal.dark .sw i{background:#374151}body.minimal.dark .sw input:checked+i{background:#22c55e}\nbody.minimal.dark .col{background:#10131a;border-color:#1e222c}\nbody.minimal.dark .col.over{background:#0f1b33;box-shadow:0 0 0 2px #3b82f6 inset}\nbody.minimal.dark .col-h span{background:#232733;color:#e5e7eb}\nbody.minimal.dark .empty{border-color:#2a2f3c;color:#9aa3b2}\nbody.minimal.dark .post.dragging{box-shadow:0 20px 40px rgba(0,0,0,.6)}\nbody.minimal.dark .overlay{background:rgba(0,0,0,.65)}\nbody.minimal.dark .modal,body.minimal.dark .pop-card{background:#14171f;border-color:#232733;box-shadow:0 30px 80px rgba(0,0,0,.6)}\nbody.minimal.dark .toast{background:#1d212b;color:#f3f4f6;border-color:#2a2f3c}\n</style>\n</head>\n<body class=\"minimal\">\n<script>try{if(localStorage.getItem(\"np_theme\")===\"dark\")document.body.classList.add(\"dark\")}catch{}</script>\n<div id=\"boot\"><div class=\"reactor\"><i></i><i></i><i></i><b></b></div><h2>LinkedIn<br>Automation</h2><p id=\"bootTxt\">INITIALIZING J.A.R.V.I.S…</p><div class=\"loadbar\"><i></i></div></div>\n<div class=\"aurora\"><i></i><i></i><i></i></div>\n<canvas id=\"confetti\"></canvas>\n<div class=\"floor\"></div>\n<canvas id=\"net\"></canvas>\n<div class=\"hud\"><i></i><i></i><i></i><i></i></div>\n<div class=\"beam\"></div>\n<div class=\"orb o1\"></div><div class=\"orb o2\"></div>\n<div class=\"frame\"><i></i><i></i><i></i><i></i></div>\n<div class=\"sky\" id=\"sky\"></div>\n<div class=\"app\">\n<aside class=\"sidebar\">\n  <div class=\"logo\"><div class=\"reactor\"><i></i><i></i><i></i><b></b></div><h2>LinkedIn<span>Automation</span></h2></div>\n  <div class=\"nav-label\">WORKSPACE</div>\n  <button class=\"nav-btn active\" data-page=\"dashboard\"><span>▦</span><span>Dashboard</span></button>\n  <button class=\"nav-btn\" data-page=\"news\"><span>◈</span><span>NewsFeed</span></button>\n  <button class=\"nav-btn\" data-page=\"drafts\"><span>▤</span><span>Post Drafts</span><b id=\"bDrafts\"></b></button>\n  <button class=\"nav-btn\" data-page=\"photos\"><span>▧</span><span>Photo Posts</span></button>\n  <div class=\"nav-label\">PUBLISHING</div>\n  <button class=\"nav-btn\" data-page=\"approval\"><span>✓</span><span>Approval Centre</span><b id=\"bApproval\"></b></button>\n  <button class=\"nav-btn\" data-page=\"scheduled\"><span>◷</span><span>Scheduled Posts</span><b id=\"bSched\"></b></button>\n  <button class=\"nav-btn\" data-page=\"published\"><span>↗</span><span>Published Posts</span></button>\n  <div class=\"nav-label\">SETTINGS</div>\n  <button class=\"nav-btn\" data-page=\"settings\"><span>⚙</span><span>Settings</span></button>\n  <button class=\"rail-btn\" id=\"themeBtn\" title=\"Switch theme\"><span>◐</span><em>Switch theme</em></button>\n  <div class=\"side-toggle\"><span>🔊 Sound</span><label class=\"sw\"><input type=\"checkbox\" id=\"sndToggle\" checked><i></i></label></div>\n  <div class=\"usercard\"><div class=\"avatar\">N</div><div><b>Nabhan</b><small>Admin · LinkedIn Automation</small></div></div>\n  <div class=\"sidebar-footer\"><div class=\"jarvis\"><span class=\"dot\"></span>J.A.R.V.I.S ONLINE</div><strong>LinkedIn Automation Studio</strong><br>One dashboard for your LinkedIn automation workflows.<div class=\"bars\"><i></i><i></i><i></i><i></i><i></i><i></i></div></div>\n</aside>\n<main class=\"main\">\n  <nav class=\"pillnav\" id=\"pillnav\">\n    <button class=\"pill active\" data-page=\"dashboard\">Dashboard</button>\n    <button class=\"pill\" data-page=\"news\">NewsFeed</button>\n    <button class=\"pill\" data-page=\"drafts\">Post Drafts</button>\n    <button class=\"pill\" data-page=\"photos\">Photo Posts</button>\n    <button class=\"pill\" data-page=\"approval\">Approval</button>\n    <button class=\"pill\" data-page=\"scheduled\">Scheduled</button>\n    <button class=\"pill\" data-page=\"published\">Published</button>\n    <button class=\"pill\" data-page=\"settings\">Settings</button>\n  </nav>\n  <header class=\"topbar\">\n    <div><div class=\"greet\"><span class=\"gdot\"></span><span id=\"greetTxt\"></span></div><h1 id=\"pageTitle\">Dashboard</h1><p id=\"pageSubtitle\"></p></div>\n    <div class=\"top-actions\"><label class=\"search\"><span>⌕</span><input id=\"globalSearch\" placeholder=\"Search posts, news…\" autocomplete=\"off\"></label><button class=\"btn btn-primary\" id=\"createBtn\">+ Create</button><div class=\"status-pill\">AI Studio live</div><div class=\"avatar\">N</div></div>\n  </header>\n  <section class=\"page active\" id=\"page-dashboard\">\n    <div class=\"grid\">\n      <div class=\"card stat\" style=\"--i:0\"><div class=\"ic\">📰</div><div class=\"l\">News Articles</div><div class=\"v\" id=\"statNews\">0</div></div>\n      <div class=\"card stat\" style=\"--i:1\"><div class=\"ic\">✍️</div><div class=\"l\">Total Drafts</div><div class=\"v\" id=\"statDrafts\">0</div></div>\n      <div class=\"card stat\" style=\"--i:2\"><div class=\"ic\">⏳</div><div class=\"l\">Scheduled</div><div class=\"v\" id=\"statSched\">0</div></div>\n      <div class=\"card stat\" style=\"--i:3\"><div class=\"ic\">🚀</div><div class=\"l\">Published</div><div class=\"v\" id=\"statPub\">0</div></div>\n    </div>\n    <div class=\"sh\"><div><h2>Recent News</h2><p>Latest articles from your n8n workflow.</p></div>\n      <button class=\"btn btn-secondary\" onclick=\"loadNews()\">Refresh</button></div>\n    <div class=\"news-grid\" id=\"dashboardNews\"></div>\n  </section>\n  <section class=\"page\" id=\"page-news\">\n    <div class=\"sh\"><div><h2>NewsFeed</h2><p>Pick an article and generate a LinkedIn caption.</p></div>\n      <button class=\"btn btn-primary\" id=\"refreshNewsBtn\" onclick=\"loadNews()\">↻ Refresh News</button></div>\n    <div class=\"news-grid\" id=\"newsGrid\"></div>\n  </section>\n  <section class=\"page\" id=\"page-drafts\">\n    <div class=\"sh\"><div><h2>Post Drafts</h2><p>Every post, moving from draft to published.</p></div></div>\n    <div class=\"board\" id=\"board\"></div>\n  </section>\n  <section class=\"page\" id=\"page-photos\">\n    <div class=\"sh\"><div><h2>Photo Posts</h2><p>Upload an image, write a caption, then approve and schedule it.</p></div></div>\n    <div class=\"card panel\">\n      <form id=\"photoForm\">\n        <div class=\"field\"><label>Post caption</label><textarea id=\"photoCaption\" rows=\"4\" placeholder=\"Write your LinkedIn caption...\"></textarea></div>\n        <div class=\"field\"><label>Photo</label><input type=\"file\" id=\"photoFile\" accept=\"image/*\"><img id=\"photoPreview\" class=\"photo-preview\" alt=\"Preview\"></div>\n        <button type=\"submit\" class=\"btn btn-primary\">Save photo draft</button>\n      </form>\n    </div>\n    <div class=\"sh\"><div><h2>Photo drafts &amp; approvals</h2></div></div>\n    <div class=\"post-list\" id=\"photoList\"></div>\n  </section>\n  <section class=\"page\" id=\"page-approval\">\n    <div class=\"sh\"><div><h2>Approval Centre</h2><p>News and photo posts waiting for your decision.</p></div></div>\n    <div class=\"post-list\" id=\"approvalList\"></div>\n  </section>\n  <section class=\"page\" id=\"page-scheduled\">\n    <div class=\"sh\"><div><h2>Scheduled Posts</h2><p>These publish automatically at the time you set.</p></div></div>\n    <div class=\"card panel small muted\">Auto-posting runs while this tab is open. Photo posts go to your <b>publish-post</b> n8n webhook and news posts go to your <b>approve-news</b> n8n webhook. For posting with the tab closed, configure a server-side n8n Schedule Trigger workflow.</div>\n    <div class=\"post-list\" id=\"scheduledList\"></div>\n  </section>\n  <section class=\"page\" id=\"page-published\">\n    <div class=\"sh\"><div><h2>Published Posts</h2><p>Posts that went live.</p></div></div>\n    <div class=\"post-list\" id=\"publishedList\"></div>\n  </section>\n  <section class=\"page\" id=\"page-settings\">\n    <div class=\"card panel\">\n      <div class=\"field\"><label>n8n publish webhook URL for PHOTO posts (Production URL)</label>\n        <input id=\"urlInput\" type=\"url\" placeholder=\"https://unknown1212.app.n8n.cloud/webhook/publish-post\"></div>\n      <p class=\"muted small\" style=\"line-height:1.7\">Copy it from your n8n Webhook node → <b>Production URL</b>. It must contain <b>/webhook/</b> (not <b>/webhook-test/</b>), the workflow must be <b>Active</b>, and the node method must be <b>POST</b>.</p>\n      <div class=\"row\"><button class=\"btn btn-primary\" id=\"urlSave\">Save URL</button></div>\n      <p class=\"small\" id=\"urlStatus\" style=\"margin-top:12px\"></p>\n    </div>\n    <div class=\"card panel\">\n      <div class=\"field\"><label>n8n approve webhook URL for NEWS posts (Production URL)</label>\n        <input id=\"newsUrlInput\" type=\"url\" placeholder=\"https://unknown1212.app.n8n.cloud/webhook/approve-news\"></div>\n      <p class=\"muted small\" style=\"line-height:1.7\">This webhook must be <b>POST</b>, <b>Active</b>, and connected to your LinkedIn <b>Create a post</b> node. In that node, set Text to <b>{{ $json.body.caption }}</b>.</p>\n      <div class=\"row\"><button class=\"btn btn-primary\" id=\"newsUrlSave\">Save News URL</button></div>\n      <p class=\"small\" id=\"newsUrlStatus\" style=\"margin-top:12px\"></p>\n    </div>\n  </section>\n</main>\n</div>\n\n<div class=\"overlay\" id=\"captionModal\"><div class=\"modal\">\n  <div class=\"sh\"><div><h2>AI LinkedIn Caption</h2><p class=\"muted small\" id=\"modalTitle\"></p></div>\n    <button class=\"btn btn-secondary\" onclick=\"closeModal('captionModal')\">✕</button></div>\n  <div class=\"field\"><label>Edit your caption</label><textarea id=\"genCaption\" class=\"editor\"></textarea></div>\n  <div class=\"row\">\n    <button class=\"btn btn-primary\" data-modal=\"save\">Save draft</button>\n    <button class=\"btn btn-success\" data-modal=\"approve\">Approve</button>\n    <button class=\"btn btn-danger\" data-modal=\"reject\">Reject</button>\n    <button class=\"btn btn-secondary\" data-modal=\"copy\">Copy</button>\n  </div>\n</div></div>\n\n<div class=\"overlay\" id=\"schedModal\"><div class=\"modal sm\">\n  <div class=\"sh\"><div><h2>Schedule post</h2><p class=\"muted small\">Pick when it should go live.</p></div>\n    <button class=\"btn btn-secondary\" onclick=\"closeModal('schedModal')\">✕</button></div>\n  <div class=\"field\"><label>Publish date &amp; time</label><input type=\"datetime-local\" id=\"schedTime\"></div>\n  <div class=\"quick\">\n    <button class=\"btn btn-secondary\" data-q=\"60\">In 1 hour</button>\n    <button class=\"btn btn-secondary\" data-q=\"tom8\">Tomorrow 8:00</button>\n    <button class=\"btn btn-secondary\" data-q=\"1440\">In 24 hours</button>\n  </div>\n  <div class=\"row\"><button class=\"btn btn-primary\" id=\"schedConfirm\">Confirm schedule</button></div>\n</div></div>\n<div class=\"ticker\"><div class=\"tag2\">LIVE</div><div class=\"track\" id=\"track\"></div></div>\n<div id=\"pop\"><div class=\"pop-card\" id=\"popCard\"></div></div>\n<div class=\"toast\" id=\"toast\"></div>\n\n<script>\n/* ============ 1. n8n WEBHOOKS ============ */\nconst DEFAULT_PUBLISH = \"https://unknown1212.app.n8n.cloud/webhook/publish-post\";\nconst DEFAULT_NEWS_PUBLISH = \"https://unknown1212.app.n8n.cloud/webhook/approve-news\";\nconst store = k => { try { return localStorage.getItem(k); } catch { return null; } };\n\nconst API = {\n  getNews: \"https://unknown1212.app.n8n.cloud/webhook/get-news\",\n  processArticle: \"https://unknown1212.app.n8n.cloud/webhook/process-article\",\n  /* PHOTO posts go here */\n  publishPost: store(\"np_publish_url\") || DEFAULT_PUBLISH,\n  /* NEWS posts go here (this is your new approve-news webhook) */\n  approveNews: store(\"np_news_publish_url\") || DEFAULT_NEWS_PUBLISH\n};\n\n/* ============ 2. STATE ============ */\nconst $ = s => document.querySelector(s);\nconst esc = v => String(v ?? \"\").replace(/[&<>\"']/g, c => ({\"&\":\"&amp;\",\"<\":\"&lt;\",\">\":\"&gt;\",'\"':\"&quot;\",\"'\":\"&#039;\"}[c]));\nlet news = [], posts = [], selected = null, resumeUrl = null, schedId = null, toastT;\nconst KEY = \"neuralpost_posts_v2\";\n\nfunction load(){ try{ posts = JSON.parse(localStorage.getItem(KEY) || \"[]\"); }catch{ posts = []; } }\nfunction save(){\n  try{ localStorage.setItem(KEY, JSON.stringify(posts)); }\n  catch{ toast(\"Browser storage is full. Delete old photo drafts.\", \"error\"); }\n  renderAll();\n}\nconst find = id => posts.find(p => p.id === id);\nconst uid = () => crypto.randomUUID ? crypto.randomUUID() : String(Date.now() + Math.random());\n\n/* ============ 3. FEEDBACK ============ */\nfunction toast(msg, type = \"\"){\n  const t = $(\"#toast\"); t.textContent = msg; t.className = \"toast\";\n  void t.offsetWidth; t.className = \"toast show \" + type;\n  clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove(\"show\"), 3800);\n}\nfunction celebrate(title, sub){\n  $(\"#popCard\").className = \"pop-card\";\n  $(\"#popCard\").innerHTML = `<svg class=\"check\" viewBox=\"0 0 84 84\"><circle cx=\"42\" cy=\"42\" r=\"40\"/><path d=\"M26 44l11 11 22-24\"/></svg><h3>${esc(title)}</h3><p>${esc(sub)}</p>`;\n  $(\"#pop\").classList.add(\"show\");\n  confetti();\n  setTimeout(() => $(\"#popCard\").classList.add(\"out\"), 1900);\n  setTimeout(() => $(\"#pop\").classList.remove(\"show\"), 2300);\n}\nfunction confetti(){\n  if (matchMedia(\"(prefers-reduced-motion: reduce)\").matches) return;\n  const c = $(\"#confetti\"), x = c.getContext(\"2d\");\n  c.width = innerWidth; c.height = innerHeight;\n  const colors = [\"#8b5cf6\",\"#38bdf8\",\"#22c55e\",\"#f59e0b\",\"#ec4899\"];\n  const bits = Array.from({length:110}, () => ({\n    x:innerWidth/2,y:innerHeight/2.2,r:Math.random()*6+3,\n    vx:(Math.random()-.5)*16,vy:Math.random()*-15-3,rot:Math.random()*6,\n    c:colors[Math.floor(Math.random()*colors.length)]\n  }));\n  let f=0;\n  (function tick(){\n    x.clearRect(0,0,c.width,c.height);\n    bits.forEach(b=>{\n      b.vy+=.45;b.x+=b.vx;b.y+=b.vy;b.rot+=.15;\n      x.save();x.translate(b.x,b.y);x.rotate(b.rot);x.fillStyle=b.c;\n      x.globalAlpha=Math.max(0,1-f/110);x.fillRect(-b.r,-b.r/2,b.r*2,b.r);x.restore();\n    });\n    if(++f<120)requestAnimationFrame(tick);else x.clearRect(0,0,c.width,c.height);\n  })();\n}\nfunction typewrite(el,text){\n  el.classList.add(\"writing\");el.value=\"\";\n  const step=Math.max(1,Math.ceil(text.length/90));let i=0;\n  const t=setInterval(()=>{\n    i+=step;el.value=text.slice(0,i);el.scrollTop=el.scrollHeight;\n    if(i>=text.length){clearInterval(t);el.value=text;el.classList.remove(\"writing\");}\n  },16);\n}\nfunction countUp(el,to){\n  const from=+el.textContent||0;if(from===to){el.textContent=to;return;}\n  const t0=performance.now();\n  (function f(t){const k=Math.min(1,(t-t0)/600);\n    el.textContent=Math.round(from+(to-from)*(1-Math.pow(1-k,3)));\n    if(k<1)requestAnimationFrame(f);\n  })(t0);\n}\ndocument.addEventListener(\"pointermove\",e=>{\n  const c=e.target.closest?.(\".card\");if(!c)return;\n  const r=c.getBoundingClientRect();\n  c.style.setProperty(\"--mx\",(e.clientX-r.left)+\"px\");\n  c.style.setProperty(\"--my\",(e.clientY-r.top)+\"px\");\n});\n\n/* ============ 4. NAVIGATION ============ */\nconst info={\n  dashboard:[\"Dashboard\",\"Manage your AI-powered LinkedIn content.\"],\n  news:[\"NewsFeed\",\"Discover articles and generate LinkedIn captions.\"],\n  drafts:[\"Post Drafts\",\"Track every post from draft to published.\"],\n  photos:[\"Photo Posts\",\"Prepare image-based LinkedIn content.\"],\n  approval:[\"Approval Centre\",\"Review content before publishing.\"],\n  scheduled:[\"Scheduled Posts\",\"Your automatic publishing queue.\"],\n  published:[\"Published Posts\",\"Your published content.\"],\n  settings:[\"Settings\",\"Connect your n8n publishing workflow.\"]\n};\nfunction showPage(n){\n  document.querySelectorAll(\".page\").forEach(p=>p.classList.remove(\"active\"));\n  document.querySelectorAll(\".nav-btn\").forEach(b=>b.classList.toggle(\"active\",b.dataset.page===n));\n  $(\"#page-\"+n).classList.add(\"active\");\n  $(\"#pageTitle\").textContent=info[n][0];\n  $(\"#pageSubtitle\").textContent=info[n][1];\n}\ndocument.querySelectorAll(\".nav-btn\").forEach(b=>b.onclick=()=>showPage(b.dataset.page));\nconst openModal=id=>$(\"#\"+id).classList.add(\"show\");\nconst closeModal=id=>$(\"#\"+id).classList.remove(\"show\");\n\n/* ============ 5. NEWS ============ */\nconst g=(a,...k)=>{\n  for(const x of k){const v=x.split(\".\").reduce((o,p)=>o?.[p],a);if(v)return v;}\n  return \"\";\n};\n/* Finds an image for an article: known fields first, then any image link hidden inside the article data */\nfunction getImage(a){\n  const direct=g(a,\"image\",\"image_url\",\"imageUrl\",\"urlToImage\",\"thumbnail\",\"enclosure.url\",\"enclosure.link\",\n    \"media:content.$.url\",\"media:content.url\",\"media:thumbnail.$.url\",\"media:thumbnail.url\",\n    \"itunes.image\",\"og:image\",\"ogImage\");\n  if(typeof direct===\"string\"&&direct.startsWith(\"http\"))return direct;\n  const text=JSON.stringify(a||{});\n  const tag=text.match(/<img[^>]+src=\\\\?[\"'](https?:[^\"'\\\\]+)/i);\n  if(tag)return tag[1];\n  const file=text.match(/https?:\\/\\/[^\"'\\s<>\\\\]+?\\.(?:jpe?g|png|webp|gif)(?:\\?[^\"'\\s<>\\\\]*)?/i);\n  return file?file[0]:\"\";\n}\nfunction newsCard(a,i){\n  const img=getImage(a);\n  const url=g(a,\"link\",\"url\",\"article_url\");\n  return `<article class=\"card news\" style=\"--i:${i}\">\n    <div class=\"imgwrap\">${img?`<img class=\"news-image\" src=\"${esc(img)}\" alt=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer\" onerror=\"this.outerHTML='<div class=&quot;news-image&quot;>No image</div>'\">`:`<div class=\"news-image\">No image</div>`}</div>\n    <div class=\"nc\"><div class=\"src\">${esc(g(a,\"creator\",\"dc:creator\",\"source\")||\"AI News\")}</div>\n    <h3>${esc(g(a,\"title\",\"headline\",\"name\")||\"Untitled article\")}</h3>\n    <p class=\"desc\">${esc(g(a,\"contentSnippet\",\"description\",\"content\",\"summary\")||\"No description.\").slice(0,260)}</p>\n    <div class=\"row\"><button class=\"btn btn-primary\" data-gen=\"${i}\">✨ Generate Caption</button>\n    ${url?`<button class=\"btn btn-secondary\" data-read=\"${i}\">Read Article</button>`:\"\"}</div></div></article>`;\n}\nfunction renderNews(){\n  $(\"#newsGrid\").innerHTML=news.length?news.map(newsCard).join(\"\"):'<div class=\"empty\">No articles returned by n8n.</div>';\n  $(\"#dashboardNews\").innerHTML=news.length?news.slice(0,4).map(newsCard).join(\"\"):'<div class=\"empty\">No news yet. Refresh the feed.</div>';\n  renderStats();\n}\nasync function loadNews(){\n  const btn=$(\"#refreshNewsBtn\"),sk='<div class=\"skel\"></div><div class=\"skel\"></div>';\n  $(\"#newsGrid\").innerHTML=sk;$(\"#dashboardNews\").innerHTML=sk;\n  btn.disabled=true;btn.textContent=\"Loading...\";\n  try{\n    const r=await fetch(API.getNews);if(!r.ok)throw new Error(\"News webhook returned HTTP \"+r.status);\n    const d=await r.json();\n    news=Array.isArray(d)?d:(d.articles||d.data||d.items);\n    if(!Array.isArray(news)){news=[];throw new Error(\"get-news did not return an array.\");}\n    renderNews();toast(\"News loaded.\",\"success\");\n  }catch(e){\n    $(\"#newsGrid\").innerHTML=$(\"#dashboardNews\").innerHTML=`<div class=\"empty\">${esc(e.message)}</div>`;\n    toast(\"Could not load news: \"+e.message,\"error\");\n  }finally{btn.disabled=false;btn.textContent=\"↻ Refresh News\";}\n}\ndocument.addEventListener(\"click\",e=>{\n  const gen=e.target.closest(\"[data-gen]\"),rd=e.target.closest(\"[data-read]\");\n  if(gen)generate(+gen.dataset.gen);\n  if(rd){const u=g(news[+rd.dataset.read],\"link\",\"url\",\"article_url\");if(u)open(u,\"_blank\",\"noopener,noreferrer\");}\n});\n\n/* ============ 6. GENERATE CAPTION ============ */\nasync function generate(i){\n  selected=news[i];if(!selected)return;\n  resumeUrl=null;\n  $(\"#modalTitle\").textContent=g(selected,\"title\",\"headline\",\"name\");\n  const box=$(\"#genCaption\");\n  box.value=\"✨ AI is writing your caption...\";box.classList.add(\"writing\");\n  openModal(\"captionModal\");\n  try{\n    const r=await fetch(API.processArticle,{\n      method:\"POST\",headers:{\"Content-Type\":\"application/json\"},\n      body:JSON.stringify({article:selected})\n    });\n    if(!r.ok)throw new Error(\"Caption webhook returned HTTP \"+r.status);\n    const d=await r.json();\n    const cap=d.caption||d.ai_caption||d.output||d.text||\"\";\n    if(!cap)throw new Error(\"No caption returned. Check process-article output in n8n.\");\n    resumeUrl=d.resumeUrl||d.resume_url||d.approvalUrl||d.approval_url||null;\n    celebrate(\"Caption generated!\",\"Your LinkedIn post is ready to review.\");\n    setTimeout(()=>typewrite(box,cap),500);\n  }catch(err){\n    box.value=\"\";box.classList.remove(\"writing\");\n    toast(\"Caption failed: \"+err.message,\"error\");\n  }\n}\nfunction modalPost(status){\n  const caption=$(\"#genCaption\").value.trim();\n  if(!caption){toast(\"There is no caption yet.\",\"error\");return null;}\n  const p={\n    id:uid(),type:\"news\",\n    title:g(selected,\"title\",\"headline\",\"name\")||\"LinkedIn news post\",\n    caption,article:selected,resumeUrl,status,createdAt:new Date().toISOString()\n  };\n  posts.unshift(p);return p;\n}\nasync function decide(approved){\n  if(!resumeUrl)return true;\n  try{\n    const u=new URL(resumeUrl);u.searchParams.set(\"approved\",approved);\n    const r=await fetch(u);if(!r.ok)throw new Error(\"HTTP \"+r.status);\n    return true;\n  }catch(e){toast(\"n8n approval failed: \"+e.message,\"error\");return false;}\n}\ndocument.querySelectorAll(\"[data-modal]\").forEach(b=>b.onclick=async()=>{\n  const a=b.dataset.modal;\n  if(a===\"copy\"){\n    try{await navigator.clipboard.writeText($(\"#genCaption\").value);toast(\"Caption copied.\",\"success\");}\n    catch{toast(\"Copy failed. Select the text manually.\",\"error\");}\n    return;\n  }\n  if(a===\"save\"){\n    if(modalPost(\"draft\")){save();closeModal(\"captionModal\");toast(\"Draft saved.\",\"success\");showPage(\"drafts\");}\n    return;\n  }\n  const ok=await decide(a===\"approve\");if(!ok)return;\n  if(modalPost(a===\"approve\"?\"approved\":\"rejected\")){\n    save();closeModal(\"captionModal\");\n    if(a===\"approve\"){celebrate(\"Approved!\",\"Schedule it from the Post Drafts board.\");showPage(\"drafts\");}\n    else toast(\"Post rejected.\");\n  }\n});\n\n/* ============ 7. PHOTO POSTS ============ */\nfunction compress(file){\n  return new Promise((res,rej)=>{\n    const img=new Image(),url=URL.createObjectURL(file);\n    img.onload=()=>{\n      const k=Math.min(1,1280/Math.max(img.width,img.height)),c=document.createElement(\"canvas\");\n      c.width=img.width*k;c.height=img.height*k;\n      c.getContext(\"2d\").drawImage(img,0,0,c.width,c.height);\n      URL.revokeObjectURL(url);res(c.toDataURL(\"image/jpeg\",.82));\n    };\n    img.onerror=()=>rej(new Error(\"Could not read image\"));\n    img.src=url;\n  });\n}\n$(\"#photoFile\").onchange=async e=>{\n  const f=e.target.files[0],pv=$(\"#photoPreview\");\n  if(!f){pv.style.display=\"none\";return;}\n  if(!f.type.startsWith(\"image/\")){toast(\"Please choose an image.\",\"error\");e.target.value=\"\";return;}\n  try{pv.src=await compress(f);pv.style.display=\"block\";}\n  catch(err){toast(err.message,\"error\");}\n};\n$(\"#photoForm\").onsubmit=e=>{\n  e.preventDefault();\n  const caption=$(\"#photoCaption\").value.trim(),pv=$(\"#photoPreview\");\n  if(!caption)return toast(\"Please enter a caption.\",\"error\");\n  if(!pv.src||pv.style.display===\"none\")return toast(\"Please select a photo.\",\"error\");\n  posts.unshift({\n    id:uid(),type:\"photo\",title:\"Photo post\",caption,\n    image:pv.src,status:\"draft\",createdAt:new Date().toISOString()\n  });\n  save();e.target.reset();pv.style.display=\"none\";\n  celebrate(\"Photo draft saved!\",\"Approve it to schedule or post.\");\n};\n\n/* ============ 8. POST CARDS & ACTIONS ============ */\nconst fmt=d=>new Date(d).toLocaleString([],{dateStyle:\"medium\",timeStyle:\"short\"});\nfunction actions(p){\n  const b=(a,cls,t)=>`<button class=\"btn ${cls}\" data-act=\"${a}\" data-id=\"${p.id}\">${t}</button>`;\n  if(p.status===\"draft\"||p.status===\"rejected\")\n    return b(\"approve\",\"btn-success\",\"✓ Approve\")+(p.status===\"draft\"?b(\"reject\",\"btn-danger\",\"Reject\"):\"\")+b(\"edit\",\"btn-secondary\",\"Edit\")+b(\"del\",\"btn-danger\",\"Delete\");\n  if(p.status===\"approved\")\n    return b(\"sched\",\"btn-primary\",\"◷ Schedule\")+b(\"now\",\"btn-secondary\",\"Post now\")+b(\"edit\",\"btn-secondary\",\"Edit\")+b(\"del\",\"btn-danger\",\"Delete\");\n  if(p.status===\"scheduled\")\n    return b(\"sched\",\"btn-secondary\",\"Reschedule\")+b(\"unsched\",\"btn-danger\",\"Cancel schedule\");\n  return \"\";\n}\nfunction postCard(p,i){\n  return `<div class=\"card post\" draggable=\"true\" data-pid=\"${p.id}\" style=\"--i:${i}\">\n    ${p.image?`<img src=\"${esc(p.image)}\" alt=\"\">`:\"\"}\n    <span class=\"badge b-${p.status}\">${p.status}</span><span class=\"tag\">${p.type===\"photo\"?\"Photo\":\"News\"}</span>\n    <h3 style=\"margin-top:10px\">${esc(p.title)}</h3><p>${esc(p.caption)}</p>\n    ${p.scheduledAt&&p.status===\"scheduled\"?`<div class=\"when\">◷ Posts ${fmt(p.scheduledAt)}</div>`:\"\"}\n    ${p.publishedAt?`<div class=\"when\">↗ Published ${fmt(p.publishedAt)}</div>`:\"\"}\n    <div class=\"row\">${actions(p)}</div></div>`;\n}\nconst list=(arr,msg)=>arr.length?arr.map(postCard).join(\"\"):`<div class=\"empty\">${msg}</div>`;\nfunction renderAll(){\n  const by=s=>posts.filter(p=>s.includes(p.status));\n  const cols=[[\"Draft\",[\"draft\",\"rejected\"]],[\"Approved\",[\"approved\"]],[\"Scheduled\",[\"scheduled\"]],[\"Published\",[\"published\"]]];\n  $(\"#board\").innerHTML=cols.map(([n,s])=>{\n    const a=by(s);\n    return `<div class=\"col\" data-col=\"${n}\"><div class=\"col-h\"><div><i class=\"dot d-${n}\"></i>${n}<small>${({Draft:\"Waiting for review\",Approved:\"Ready to go live\",Scheduled:\"Queued to publish\",Published:\"Live on LinkedIn\"})[n]}</small></div><span>${a.length}</span></div>${a.length?a.map(postCard).join(\"\"):'<div class=\"empty\">Drop a post here</div>'}</div>`;\n  }).join(\"\");\n  $(\"#photoList\").innerHTML=list(posts.filter(p=>p.type===\"photo\"),\"No photo drafts yet.\");\n  $(\"#approvalList\").innerHTML=list(by([\"draft\"]),\"Nothing is waiting for approval.\");\n  $(\"#scheduledList\").innerHTML=list(by([\"scheduled\"]).sort((a,b)=>new Date(a.scheduledAt)-new Date(b.scheduledAt)),\"No scheduled posts yet. Approve a post, then schedule it.\");\n  $(\"#publishedList\").innerHTML=list(by([\"published\"]),\"No published posts yet.\");\n  [[\"#bDrafts\",by([\"draft\"]).length],[\"#bApproval\",by([\"draft\"]).length],[\"#bSched\",by([\"scheduled\"]).length]].forEach(([s,n])=>{\n    const el=$(s);el.textContent=n;el.classList.toggle(\"on\",n>0);\n  });\n  renderStats();\n}\nfunction renderStats(){\n  countUp($(\"#statNews\"),news.length);\n  countUp($(\"#statDrafts\"),posts.length);\n  countUp($(\"#statSched\"),posts.filter(p=>p.status===\"scheduled\").length);\n  countUp($(\"#statPub\"),posts.filter(p=>p.status===\"published\").length);\n}\ndocument.addEventListener(\"click\",async e=>{\n  const b=e.target.closest(\"[data-act]\");if(!b)return;\n  const p=find(b.dataset.id);if(!p)return;\n  const a=b.dataset.act;\n  if(a===\"approve\"){\n    if(p.resumeUrl){\n      const old=resumeUrl;resumeUrl=p.resumeUrl;\n      const ok=await decide(true);resumeUrl=old;if(!ok)return;\n    }\n    p.status=\"approved\";save();\n    celebrate(\"Approved!\",p.type===\"photo\"?\"Photo post approved. Schedule it next.\":\"Ready to schedule.\");\n  }\n  if(a===\"reject\"){\n    if(p.resumeUrl){\n      const old=resumeUrl;resumeUrl=p.resumeUrl;\n      const ok=await decide(false);resumeUrl=old;if(!ok)return;\n    }\n    p.status=\"rejected\";save();toast(\"Post rejected.\");\n  }\n  if(a===\"edit\"){\n    const t=prompt(\"Edit caption:\",p.caption);\n    if(t&&t.trim()){p.caption=t.trim();save();toast(\"Caption updated.\",\"success\");}\n  }\n  if(a===\"del\"){\n    if(confirm(\"Delete this post?\")){posts=posts.filter(x=>x.id!==p.id);save();}\n  }\n  if(a===\"unsched\"){p.status=\"approved\";delete p.scheduledAt;save();toast(\"Schedule cancelled.\");}\n  if(a===\"now\")publish(p);\n  if(a===\"sched\"){\n    schedId=p.id;const d=new Date(Date.now()+36e5);\n    $(\"#schedTime\").value=new Date(d-d.getTimezoneOffset()*6e4).toISOString().slice(0,16);\n    openModal(\"schedModal\");\n  }\n});\n\n/* ============ 9. SCHEDULING & AUTO-POST ============ */\ndocument.querySelectorAll(\"[data-q]\").forEach(b=>b.onclick=()=>{\n  const d=new Date();\n  if(b.dataset.q===\"tom8\"){d.setDate(d.getDate()+1);d.setHours(8,0,0,0);}\n  else d.setMinutes(d.getMinutes()+ +b.dataset.q);\n  $(\"#schedTime\").value=new Date(d-d.getTimezoneOffset()*6e4).toISOString().slice(0,16);\n});\n$(\"#schedConfirm\").onclick=()=>{\n  const v=$(\"#schedTime\").value,p=find(schedId);\n  if(!v||!p)return toast(\"Pick a date and time.\",\"error\");\n  if(new Date(v)<=new Date())return toast(\"Choose a time in the future.\",\"error\");\n  p.status=\"scheduled\";p.scheduledAt=new Date(v).toISOString();\n  save();closeModal(\"schedModal\");\n  celebrate(\"Post scheduled!\",\"Goes live \"+fmt(p.scheduledAt));\n};\n\n/* ---- Settings: webhook URLs ---- */\nfunction showStatus(el,u,label){\n  if(!u){el.style.color=\"#fbbf24\";el.textContent=\"Not connected. Paste your webhook URL above.\";}\n  else if(u.includes(\"/webhook-test/\")){el.style.color=\"#fbbf24\";el.textContent=\"This is a Test URL. Use the Production URL instead.\";}\n  else{el.style.color=\"#4ade80\";el.textContent=label+\" connected to: \"+u;}\n}\nfunction urlStatus(){\n  $(\"#urlInput\").value=API.publishPost;\n  $(\"#newsUrlInput\").value=API.approveNews;\n  showStatus($(\"#urlStatus\"),API.publishPost,\"Photo posts\");\n  showStatus($(\"#newsUrlStatus\"),API.approveNews,\"News posts\");\n}\nfunction saveUrl(inputId,storeKey,apiKey){\n  const v=$(inputId).value.trim();\n  if(v&&!/^https:\\/\\//.test(v))return toast(\"The URL must start with https://\",\"error\");\n  if(v&&!v.includes(\"/webhook/\"))return toast(\"Use the n8n Production URL containing /webhook/.\",\"error\");\n  try{localStorage.setItem(storeKey,v);}catch{}\n  API[apiKey]=v;urlStatus();\n  toast(v?\"Webhook URL saved.\":\"Webhook URL cleared.\",\"success\");\n}\n$(\"#urlSave\").onclick=()=>saveUrl(\"#urlInput\",\"np_publish_url\",\"publishPost\");\n$(\"#newsUrlSave\").onclick=()=>saveUrl(\"#newsUrlInput\",\"np_news_publish_url\",\"approveNews\");\n\n/* ---- Publishing: news -> approve-news, photo -> publish-post ---- */\nasync function publish(p){\n  const target = p.type===\"news\" ? API.approveNews : API.publishPost;\n  if(!target){\n    toast(p.type===\"news\"\n      ? \"Paste your n8n approve-news webhook URL in Settings first.\"\n      : \"Paste your n8n publish webhook URL in Settings first.\",\"error\");\n    showPage(\"settings\");\n    if(p.status===\"scheduled\"||p.status===\"publishing\"){p.status=\"approved\";save();}\n    return;\n  }\n  if(p.isPublishing)return;\n  p.isPublishing=true;\n  try{\n    const r=await fetch(target,{\n      method:\"POST\",\n      headers:{\"Content-Type\":\"application/json\"},\n      body:JSON.stringify({\n        type:p.type,\n        title:p.title||\"\",\n        caption:p.caption,\n        article:p.article||null,\n        image:p.image||null\n      })\n    });\n    if(!r.ok)throw new Error(\"HTTP \"+r.status);\n    p.status=\"published\";\n    p.publishedAt=new Date().toISOString();\n    delete p.scheduledAt;\n    save();\n    celebrate(\"Published!\",\"Your post was accepted by the n8n webhook.\");\n  }catch(e){\n    toast(\"Publish failed: \"+(e.message===\"Failed to fetch\"?\"Failed to fetch. Check n8n CORS and webhook settings.\":e.message),\"error\");\n    if(p.status===\"scheduled\"||p.status===\"publishing\"){p.status=\"approved\";save();}\n  }finally{\n    p.isPublishing=false;\n  }\n}\nfunction tick(){\n  posts.filter(p=>p.status===\"scheduled\"&&new Date(p.scheduledAt)<=new Date())\n    .forEach(p=>{p.status=\"publishing\";publish(p);});\n}\nsetInterval(tick,15000);\n\n/* ============ 10. START ============ */\nload();renderAll();urlStatus();showPage(\"dashboard\");loadNews();tick();\n</script>\n<script>\n/* ===== Sci-fi layer: flying newspapers + multilingual ticker ===== */\n(function(){\n  const names=[\"THE NEURAL TIMES\",\"新聞 · NEWS\",\"الأخبار\",\"LE MONDE IA\",\"DER KI-BOTE\",\"समाचार\",\"НОВОСТИ\",\"EL FUTURO\",\"오늘의 뉴스\",\"O GLOBO IA\"];\n  const r=(a,b)=>a+Math.random()*(b-a);\n  const sky=document.getElementById(\"sky\");\n  names.forEach((n,i)=>{\n    const front=i%4===0,w=front?r(150,200):r(70,130),p=document.createElement(\"div\");\n    p.className=\"paper\";\n    p.style.cssText=`--w:${w}px;--o:${front?.28:r(.35,.7)};--b:${front?3:0}px;--d:${r(22,44)}s;--dl:-${r(0,40)}s;--x0:${r(100,125)}vw;--x1:${r(-30,-15)}vw;--y0:${r(60,105)}vh;--y1:${r(-20,40)}vh`;\n    p.innerHTML=`<b>${n}</b><i></i><u></u><u></u><u></u><u></u>`;\n    sky.appendChild(p);\n  });\n  const base=[\"BREAKING\",\"最新ニュース\",\"أخبار عاجلة\",\"ÚLTIMA HORA\",\"NOUVELLES IA\",\"АКТУАЛЬНО\",\"अभी की खबर\",\"EILMELDUNG\",\"속보\",\"NOTÍCIAS AO VIVO\"];\n  const track=document.getElementById(\"track\");\n  window.setTicker=function(){\n    const t=(typeof news!==\"undefined\"?news:[]).map(a=>g(a,\"title\",\"headline\",\"name\")).filter(Boolean);\n    const items=[];\n    for(let i=0;i<Math.max(base.length,t.length);i++){\n      if(base[i%base.length])items.push(base[i%base.length]);\n      if(t[i])items.push(t[i]);\n    }\n    const html=items.map(x=>`<span>${esc(x)}</span>`).join(\"\");\n    track.innerHTML=html+html;\n  };\n  const _render=renderNews;\n  renderNews=function(){_render();setTicker();};\n  setTicker();\n})();\n</script>\n<script>\n/* ===== Iron-Man layer: flying LinkedIn/news/photo, network, tilt, boot ===== */\n(function(){\n  const r=(a,b)=>a+Math.random()*(b-a),sky=document.getElementById(\"sky\");\n  document.querySelectorAll(\".nav-btn\").forEach((b,i)=>b.style.setProperty(\"--n\",i));\n  [[\"li\",6],[\"nl\",5],[\"ph\",5]].forEach(([k,c])=>{\n    for(let i=0;i<c;i++){\n      const el=document.createElement(\"div\");el.className=\"chip \"+k;\n      el.style.cssText=`--w:${r(46,84)}px;--o:${r(.45,.85)};--b:${Math.random()<.2?2:0}px;--d:${r(18,38)}s;--dl:-${r(0,38)}s;--x0:${r(100,125)}vw;--x1:${r(-30,-15)}vw;--y0:${r(30,110)}vh;--y1:${r(-30,60)}vh`;\n      el.innerHTML=k===\"li\"?\"in\":k===\"nl\"?`<b><em>in</em>NEWS</b><u></u><u></u><u style=\"width:70%\"></u>`:`<span>📷</span>PHOTO POST`;\n      sky.appendChild(el);\n    }\n  });\n  document.addEventListener(\"pointermove\",e=>{\n    const c=e.target.closest?.(\".card\");if(!c||c.classList.contains(\"panel\"))return;\n    const b=c.getBoundingClientRect();\n    c.style.setProperty(\"--rx\",((e.clientY-b.top)/b.height-.5)*-9+\"deg\");\n    c.style.setProperty(\"--ry\",((e.clientX-b.left)/b.width-.5)*9+\"deg\");\n  });\n  const boot=document.getElementById(\"boot\");\n  if(boot){\n    const t=document.getElementById(\"bootTxt\");\n    [\"INITIALIZING J.A.R.V.I.S…\",\"LOADING NEWS ENGINE…\",\"LINKING n8n WORKFLOWS…\",\"LINKEDIN CHANNEL ONLINE\",\"ALL SYSTEMS READY\"].forEach((s,i)=>setTimeout(()=>t.textContent=s,i*480));\n    setTimeout(()=>boot.classList.add(\"gone\"),2500);setTimeout(()=>boot.remove(),3500);\n  }\n  if(matchMedia(\"(prefers-reduced-motion: reduce)\").matches)return;\n  const c=document.getElementById(\"net\"),x=c.getContext(\"2d\"),m={x:-999,y:-999};let W,H,pts=[];\n  const rs=()=>{W=c.width=innerWidth;H=c.height=innerHeight;\n    pts=Array.from({length:Math.min(80,Math.floor(W*H/22000))},()=>({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.4,vy:(Math.random()-.5)*.4}));};\n  rs();addEventListener(\"resize\",rs);addEventListener(\"pointermove\",e=>{m.x=e.clientX;m.y=e.clientY;});\n  (function draw(){\n    x.clearRect(0,0,W,H);\n    for(const p of pts){p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1;x.fillStyle=\"rgba(103,232,249,.8)\";x.fillRect(p.x-1,p.y-1,2,2);}\n    for(let i=0;i<pts.length;i++){\n      const a=pts[i];\n      for(let j=i+1;j<pts.length;j++){\n        const b=pts[j],dx=a.x-b.x,dy=a.y-b.y,d=dx*dx+dy*dy;\n        if(d<15000){x.strokeStyle=`rgba(34,211,238,${.22*(1-d/15000)})`;x.beginPath();x.moveTo(a.x,a.y);x.lineTo(b.x,b.y);x.stroke();}\n      }\n      const mx=a.x-m.x,my=a.y-m.y;\n      if(mx*mx+my*my<22000){x.strokeStyle=\"rgba(251,191,36,.5)\";x.beginPath();x.moveTo(a.x,a.y);x.lineTo(m.x,m.y);x.stroke();}\n    }\n    requestAnimationFrame(draw);\n  })();\n})();\n</script>\n<script>\n/* ===== Smooth click sounds (Web Audio, no files needed) ===== */\nwindow.Snd=(function(){\n  let ctx,master,on=true;\n  try{on=localStorage.getItem(\"np_sound\")!==\"off\";}catch{}\n  function init(){\n    if(!ctx){\n      const A=window.AudioContext||window.webkitAudioContext;if(!A)return false;\n      ctx=new A();master=ctx.createGain();master.gain.value=.55;\n      const lp=ctx.createBiquadFilter();lp.type=\"lowpass\";lp.frequency.value=5200;\n      const dl=ctx.createDelay();dl.delayTime.value=.13;const fb=ctx.createGain();fb.gain.value=.22;\n      master.connect(lp);lp.connect(ctx.destination);\n      lp.connect(dl);dl.connect(fb);fb.connect(dl);dl.connect(ctx.destination);\n    }\n    if(ctx.state===\"suspended\")ctx.resume();\n    return true;\n  }\n  function tone(f,t0,d,type,v,f2){\n    const t=ctx.currentTime+t0,o=ctx.createOscillator(),g=ctx.createGain();\n    o.type=type||\"sine\";o.frequency.setValueAtTime(f,t);\n    if(f2)o.frequency.exponentialRampToValueAtTime(f2,t+d);\n    g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(v,t+.015);g.gain.exponentialRampToValueAtTime(.0001,t+d);\n    o.connect(g);g.connect(master);o.start(t);o.stop(t+d+.05);\n  }\n  const play=fn=>()=>{if(on&&init())fn();};\n  return{\n    get on(){return on},\n    set(v){on=v;try{localStorage.setItem(\"np_sound\",v?\"on\":\"off\");}catch{}},\n    click:play(()=>{tone(420,0,.13,\"sine\",.12,840);tone(1260,.02,.08,\"triangle\",.025);}),\n    nav:play(()=>{tone(600,0,.11,\"sine\",.08,900);tone(900,.05,.13,\"sine\",.04);}),\n    pick:play(()=>tone(500,0,.09,\"sine\",.07,720)),\n    success:play(()=>[523.25,659.25,783.99,1046.5].forEach((f,i)=>tone(f,i*.09,.4,\"sine\",.09))),\n    error:play(()=>tone(230,0,.2,\"triangle\",.1,150))\n  };\n})();\n(function(){\n  /* click sound on every button */\n  document.addEventListener(\"click\",e=>{\n    const b=e.target.closest?.(\"button,.btn,[data-act],[data-gen],[data-read],[data-q]\");\n    if(b&&!b.classList.contains(\"nav-btn\")&&!b.classList.contains(\"pill\"))Snd.click();\n  },true);\n  /* patch existing functions to add sounds */\n  const _cel=celebrate;celebrate=function(a,b){_cel(a,b);Snd.success();};\n  const _toast=toast;toast=function(m,t){_toast(m,t);if(t===\"error\")Snd.error();};\n  const _sp=showPage;showPage=function(n){_sp(n);Snd.nav();const q=document.getElementById(\"globalSearch\");if(q)q.value=\"\";};\n  /* sound toggle */\n  const tg=document.getElementById(\"sndToggle\");\n  tg.checked=Snd.on;\n  tg.onchange=()=>{Snd.set(tg.checked);if(tg.checked)Snd.click();};\n  /* greeting */\n  const h=new Date().getHours();\n  document.getElementById(\"greetTxt\").textContent=\n    (h<12?\"Good morning\":h<17?\"Good afternoon\":\"Good evening\")+\", Nabhan · \"+\n    new Date().toLocaleDateString([],{weekday:\"long\",month:\"long\",day:\"numeric\"});\n  /* create + search */\n  document.getElementById(\"createBtn\").onclick=()=>showPage(\"photos\");\n  document.getElementById(\"globalSearch\").oninput=e=>{\n    const q=e.target.value.toLowerCase().trim();\n    document.querySelectorAll(\".page.active .card.news,.page.active .card.post\").forEach(c=>{\n      c.style.display=(!q||c.textContent.toLowerCase().includes(q))?\"\":\"none\";\n    });\n  };\n  /* drag & drop between board columns */\n  let dragId=null;\n  document.addEventListener(\"dragstart\",e=>{\n    const c=e.target.closest?.(\".board .post\");if(!c)return;\n    dragId=c.dataset.pid;c.classList.add(\"dragging\");\n    e.dataTransfer.effectAllowed=\"move\";e.dataTransfer.setData(\"text/plain\",dragId);Snd.pick();\n  });\n  document.addEventListener(\"dragend\",()=>{\n    dragId=null;document.querySelectorAll(\".dragging,.over\").forEach(x=>x.classList.remove(\"dragging\",\"over\"));\n  });\n  document.addEventListener(\"dragover\",e=>{\n    const c=e.target.closest?.(\".board .col\");if(!c||!dragId)return;\n    e.preventDefault();\n    document.querySelectorAll(\".col.over\").forEach(x=>{if(x!==c)x.classList.remove(\"over\");});\n    c.classList.add(\"over\");\n  });\n  document.addEventListener(\"drop\",e=>{\n    const c=e.target.closest?.(\".board .col\");if(!c||!dragId)return;\n    e.preventDefault();const to=c.dataset.col,id=dragId;dragId=null;c.classList.remove(\"over\");move(id,to);\n  });\n  function move(id,to){\n    const p=find(id);if(!p)return;\n    const btn=a=>document.querySelector(`.board [data-act=\"${a}\"][data-id=\"${id}\"]`),st=p.status;\n    if(to===\"Approved\"){\n      if(st===\"draft\"||st===\"rejected\")btn(\"approve\")?.click();\n      else if(st===\"scheduled\")btn(\"unsched\")?.click();\n    }else if(to===\"Scheduled\"){\n      if(st===\"approved\"||st===\"scheduled\")btn(\"sched\")?.click();\n      else toast(\"Approve the post first, then schedule it.\",\"error\");\n    }else if(to===\"Published\"){\n      if(st===\"approved\")btn(\"now\")?.click();\n      else toast(st===\"published\"?\"Already published.\":\"Approve the post first.\",\"error\");\n    }else if(to===\"Draft\"&&st!==\"draft\"&&st!==\"rejected\"){\n      toast(\"Posts can't move back to Draft.\",\"error\");\n    }\n  }\n})();\n</script>\n<script>\n/* ===== Theme switch + pill navigation ===== */\n(function(){\n  document.querySelectorAll(\".sidebar .nav-btn\").forEach(b=>{\n    const t=b.querySelector(\"span:last-of-type\");if(t)b.title=t.textContent;\n  });\n  const _sp=showPage;\n  showPage=function(n){\n    _sp(n);\n    document.querySelectorAll(\".pill\").forEach(p=>p.classList.toggle(\"active\",p.dataset.page===n));\n  };\n  document.querySelectorAll(\".pill\").forEach(b=>b.onclick=()=>showPage(b.dataset.page));\n  document.getElementById(\"themeBtn\").onclick=()=>{\n    const d=document.body.classList.toggle(\"dark\");\n    try{localStorage.setItem(\"np_theme\",d?\"dark\":\"light\");}catch{}\n    Snd.click();toast(d?\"Dark theme\":\"Light theme\",\"success\");\n  };\n})();\n</script>\n</body>\n</html>\n",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "text/html; charset=utf-8"
+              }
+            ]
+          }
+        }
+      },
+      "id": "9c2a780c-d928-4b11-bf36-f5b561f920fb",
+      "name": "Respond to Webhook3",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1376,
+        112
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "process-article",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "b9230182-35e5-4494-87ff-c1e6ec819474",
+      "name": "Webhook4",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.2,
+      "position": [
+        1584,
+        272
+      ],
+      "webhookId": "99d46044-f121-401c-aab4-d3c391b525b0"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.body.article.link }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "User-Agent",
+              "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120 Safari/537.36"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "text"
+            }
+          }
+        }
+      },
+      "id": "5d0eef28-936c-457f-8f35-4920db4c9469",
+      "name": "HTTP Request",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        1648,
+        752
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "extractHtmlContent",
+        "extractionValues": {
+          "values": [
+            {
+              "key": "article_text",
+              "cssSelector": "article"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "f9875bba-e698-4f88-bde1-a0a8ac792633",
+      "name": "HTML",
+      "type": "n8n-nodes-base.html",
+      "typeVersion": 1.2,
+      "position": [
+        1792,
+        576
+      ]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=\nYou are a professional LinkedIn content writer specializing in AI, technology, and business news.\n\nYour task is to create a natural, engaging, and professional LinkedIn post based on the selected news article.\n\nREQUIREMENTS:\n- Write between 120 and 180 words.\n- Start with a strong and attention-grabbing hook.\n- Explain the main news in simple, clear English.\n- Highlight why this development matters to the AI and technology industry.\n- Explain the practical impact or significance when supported by the article.\n- Maintain a professional, human, and engaging tone.\n- Use short paragraphs for easy readability.\n- Add 3–5 relevant hashtags at the end.\n- Do not invent facts, statistics, opinions, or quotes.\n- Do not repeat the headline unnecessarily.\n- Do not mention that you are an AI.\n- If the article text is incomplete, use the available title and summary.\n- Never ask the user for more information.\n- Return ONLY the final LinkedIn caption.\n- Do not include explanations, notes, or headings such as \"LinkedIn Post\".\n\nTITLE:\n{{ $('Webhook4').first().json.body.article.title }}\n\nSUMMARY:\n{{ $('Webhook4').first().json.body.article.contentSnippet }}\n\nARTICLE TEXT:\n{{ $json.article_text ? [].concat($json.article_text).join(' ').slice(0, 6000) : '' }}\n\nCreate the final LinkedIn post using the information above.\n",
+        "options": {
+          "systemMessage": "You are a professional LinkedIn content writer specializing in AI, technology, and business news. Return ONLY the final LinkedIn caption, with no explanations or headings."
+        }
+      },
+      "id": "97459c6b-c533-473f-8388-6cfdcba17862",
+      "name": "AI Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        2048,
+        608
+      ]
+    },
+    {
+      "parameters": {
+        "model": "openai/gpt-oss-120b",
+        "options": {}
+      },
+      "id": "505b4328-c7e9-4ece-aa4a-b4effd553b1a",
+      "name": "Groq Chat Model1",
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        2032,
+        752
+      ],
+      "credentials": {
+        "groqApi": {
+          "id": "yvUza7PQYiN8A0u7",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "\nconst ai = $('AI Agent').first().json;\nconst webhook = $('Webhook4').first().json;\n\nconst article = webhook.body?.article || {};\n\nconst caption = String(\n  ai.output ||\n  ai.text ||\n  ai.response ||\n  ai.message?.content ||\n  \"\"\n).trim();\n\nif (!caption) {\n  throw new Error(\"AI caption is empty\");\n}\n\nreturn [{\n  json: {\n    caption,\n    title: article.title || \"\",\n    summary: article.contentSnippet || \"\"\n  }\n}];\n"
+      },
+      "id": "ae8515bd-3b7c-41df-a1be-198b2cc62b88",
+      "name": "Code in JavaScript1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2848,
+        448
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{\n  {\n    success: true,\n    caption: $json.caption,\n    title: $json.title,\n    summary: $json.summary,\n    resumeUrl: $json.resumeUrl\n  }\n}}",
+        "options": {}
+      },
+      "id": "4c8c6a6d-51b7-4cbf-b102-c92e7c8dab72",
+      "name": "Respond to Webhook4",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1920,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "resume": "webhook",
+        "options": {}
+      },
+      "id": "c5cab7d2-00ea-45d4-875e-2e0e73887286",
+      "name": "Wait",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        2368,
+        320
+      ],
+      "webhookId": "6c4ccecc-07ec-441c-b57b-5afe1c644585"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 4
+          },
+          "conditions": [
+            {
+              "id": "ed29057a-573c-40c4-b094-3f53c0edee1b",
+              "leftValue": "={{ $json.query.approved }}",
+              "rightValue": "true",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "id": "0228b773-a171-478e-90f2-6560088f9a3c",
+      "name": "If1",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.4,
+      "position": [
+        2576,
+        256
+      ]
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "value": "1FrMzqxLdWobSRYt",
+          "mode": "list",
+          "cachedResultName": "news_feed",
+          "cachedResultUrl": "/projects/zxYw51YAVypAeQXm/datatables/1FrMzqxLdWobSRYt"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "title": "={{ $('Code in JavaScript1').first().json.title }}",
+            "caption": "={{ $('Code in JavaScript1').first().json.caption }}",
+            "description": "={{ $('Code in JavaScript1').first().json.summary }}",
+            "article_url": "={{ $('Code in JavaScript1').first().json.article_url }}",
+            "image_url": "={{ $('Code in JavaScript1').first().json.image_url }}",
+            "source": "={{ $('Code in JavaScript1').first().json.source }}",
+            "published_at": "={{$json.published_at}}",
+            "batch_date": "={{$now.toISODate()}}",
+            "resume_url": "={{$json.resumeUrl}}",
+            "status": "approved"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "title",
+              "displayName": "title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "description",
+              "displayName": "description",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "article_url",
+              "displayName": "article_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "image_url",
+              "displayName": "image_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "source",
+              "displayName": "source",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "published_at",
+              "displayName": "published_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "caption",
+              "displayName": "caption",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "slot",
+              "displayName": "slot",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "batch_date",
+              "displayName": "batch_date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "resume_url",
+              "displayName": "resume_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "4ed8803b-60fc-4164-b854-bd7c05dea299",
+      "name": "Insert row1",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        2784,
+        256
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 22,
+              "triggerAtMinute": 40
+            }
+          ]
+        }
+      },
+      "id": "d9673d1e-5bdd-4222-b199-21603fc15153",
+      "name": "Schedule Trigger2",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        1968,
+        -48
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "1FrMzqxLdWobSRYt",
+          "mode": "list",
+          "cachedResultName": "news_feed",
+          "cachedResultUrl": "/projects/zxYw51YAVypAeQXm/datatables/1FrMzqxLdWobSRYt"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "status",
+              "keyValue": "approved"
+            },
+            {
+              "keyName": "caption",
+              "condition": "isNotEmpty"
+            }
+          ]
+        },
+        "limit": 1,
+        "orderBy": true,
+        "orderByColumn": "id"
+      },
+      "id": "8c4fdcc5-41a8-4f0e-9e0d-449cf1a47da1",
+      "name": "Get row(s)1",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        2144,
+        -32
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 4
+          },
+          "conditions": [
+            {
+              "id": "bdc1ce34-8d54-497b-894e-11112b0c291a",
+              "leftValue": "={{ $json.status }}",
+              "rightValue": "=approved",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "id": "5a6e194c-14f0-4f89-9ae2-b77b148e2962",
+      "name": "If",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.4,
+      "position": [
+        2320,
+        -80
+      ]
+    },
+    {
+      "parameters": {
+        "person": "Y5tFLWc7go",
+        "text": "={{ $json.caption }}",
+        "additionalFields": {}
+      },
+      "id": "8f120a93-9fcc-404a-ae8d-5ccfeca6a78a",
+      "name": "Create a post2",
+      "type": "n8n-nodes-base.linkedIn",
+      "typeVersion": 1,
+      "position": [
+        2528,
+        -128
+      ],
+      "credentials": {
+        "linkedInOAuth2Api": {
+          "id": "yMoGQJ8SeNeGLUZt",
+          "name": "LinkedIn account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "1FrMzqxLdWobSRYt",
+          "mode": "list",
+          "cachedResultName": "news_feed",
+          "cachedResultUrl": "/projects/zxYw51YAVypAeQXm/datatables/1FrMzqxLdWobSRYt"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyValue": "={{ $('Get row(s)1').item.json.id }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "title": "={{ $('Get row(s)1').item.json.title }}",
+            "description": "={{ $('Get row(s)1').item.json.description }}",
+            "article_url": "={{ $('Get row(s)1').item.json.article_url }}",
+            "image_url": "={{ $('Get row(s)1').item.json.image_url }}",
+            "source": "={{ $('Get row(s)1').item.json.source }}",
+            "published_at": "={{ $('Get row(s)1').item.json.published_at }}",
+            "caption": "={{ $('Get row(s)1').item.json.caption }}",
+            "slot": "={{ $('Get row(s)1').item.json.slot }}",
+            "batch_date": "={{ $('Get row(s)1').item.json.batch_date }}",
+            "resume_url": "={{ $('Get row(s)1').item.json.resume_url }}",
+            "status": "posted"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "title",
+              "displayName": "title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "description",
+              "displayName": "description",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "article_url",
+              "displayName": "article_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "image_url",
+              "displayName": "image_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "source",
+              "displayName": "source",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "published_at",
+              "displayName": "published_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "caption",
+              "displayName": "caption",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "slot",
+              "displayName": "slot",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "batch_date",
+              "displayName": "batch_date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "resume_url",
+              "displayName": "resume_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "a55f5696-1a14-4aa3-b1e9-7ae1f1781964",
+      "name": "Update row(s)3",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        2752,
+        -128
+      ]
+    },
+    {
+      "parameters": {
+        "numberInputs": 4
+      },
+      "id": "181080d4-68bf-4311-a7cc-2d917f6e6326",
+      "name": "Merge",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        1008,
+        528
+      ]
+    },
+    {
+      "parameters": {
+        "sortFieldsUi": {
+          "sortField": [
+            {
+              "fieldName": "isoDate",
+              "order": "descending"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "f4ff017a-ee5c-40a9-8725-bf81343e4610",
+      "name": "Sort",
+      "type": "n8n-nodes-base.sort",
+      "typeVersion": 1,
+      "position": [
+        1232,
+        528
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 4
+          },
+          "conditions": [
+            {
+              "id": "238db616-5b8a-4da6-ad4d-6139af0c573a",
+              "leftValue": "=  {{ $json.isoDate }}",
+              "rightValue": "=   {{ $now.minus({hours: 3}).toISO() }}",
+              "operator": {
+                "type": "dateTime",
+                "operation": "after"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "f42cf5ea-f9bc-4342-93e4-dbed464c239a",
+      "name": "Filter",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.4,
+      "position": [
+        1408,
+        416
+      ]
+    },
+    {
+      "parameters": {
+        "maxItems": 5
+      },
+      "id": "6568354f-c2e1-4ee7-a701-e581d4ad294a",
+      "name": "Limit",
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        512,
+        736
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $input.all().map(item => item.json) }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        }
+      },
+      "id": "ec50e204-b98a-4062-b25c-185ede4a275d",
+      "name": "Respond to Webhook2",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        992,
+        176
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "publish-post",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.2,
+      "position": [
+        1376,
+        -208
+      ],
+      "id": "3156fbe3-dc7b-4223-9daa-617ce735df17",
+      "name": "Webhook1",
+      "webhookId": "784e4a46-2935-4df9-a442-df0b747edde0"
+    },
+    {
+      "parameters": {
+        "person": "Y5tFLWc7go",
+        "text": "={{ $json.caption }}",
+        "shareMediaCategory": "IMAGE",
+        "additionalFields": {
+          "visibility": "PUBLIC"
+        }
+      },
+      "type": "n8n-nodes-base.linkedIn",
+      "typeVersion": 1,
+      "position": [
+        1744,
+        -256
+      ],
+      "id": "d02b2ebc-8f26-489d-907c-7c5c4fa039cf",
+      "name": "Create a post1",
+      "credentials": {
+        "linkedInOAuth2Api": {
+          "id": "yMoGQJ8SeNeGLUZt",
+          "name": "LinkedIn account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "\nconst input = $input.first().json;\nconst body = input.body || input;\n\n// Get caption and image\nconst caption =\n  body.caption ||\n  body.ai_caption ||\n  body.text ||\n  \"\";\n\nconst image =\n  body.image ||\n  body.photo ||\n  body.imageData ||\n  \"\";\n\n// Validate caption\nif (!caption.trim()) {\n  throw new Error(\"Caption not received from NeuralPost\");\n}\n\n// =====================================\n// 1. NEWSFEED POST (TEXT ONLY)\n// =====================================\n\nif (!image) {\n  return [\n    {\n      json: {\n        type: \"news\",\n        caption: caption,\n        postType: \"news\"\n      }\n    }\n  ];\n}\n\n// =====================================\n// 2. PHOTO POST (IMAGE + CAPTION)\n// =====================================\n\n// Check image format\nconst match = image.match(\n  /^data:(image\\/[^;]+);base64,([\\s\\S]+)$/\n);\n\nif (!match) {\n  throw new Error(\n    \"Invalid image format. Expected base64 image data.\"\n  );\n}\n\n// Return image as binary\nreturn [\n  {\n    json: {\n      type: \"photo\",\n      caption: caption,\n      postType: \"photo\"\n    },\n    binary: {\n      data: {\n        data: match[2],\n        mimeType: match[1],\n        fileName: \"linkedin-image.\" + match[1].split(\"/\")[1]\n      }\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1568,
+        -240
+      ],
+      "id": "5f9adda3-884d-4d9b-8506-08128958b536",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "approve-news",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.2,
+      "position": [
+        448,
+        -288
+      ],
+      "id": "64995ea9-a86d-4aed-a4a4-5f03afa3248e",
+      "name": "Webhook",
+      "webhookId": "7c6fa06a-0e1e-4c97-8f96-8e941e524a95"
+    },
+    {
+      "parameters": {
+        "person": "Y5tFLWc7go",
+        "text": "={{ $json.body.caption }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.linkedIn",
+      "typeVersion": 1,
+      "position": [
+        752,
+        -288
+      ],
+      "id": "2b5e5e93-2190-4c0f-ac78-ff20f975aba8",
+      "name": "Create a post",
+      "credentials": {
+        "linkedInOAuth2Api": {
+          "id": "yMoGQJ8SeNeGLUZt",
+          "name": "LinkedIn account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const out = [];\n\nfor (const item of $input.all()) {\n  const a = item.json;\n  let image = a.image || a.enclosure?.url || '';\n\n  if (!image && a.link) {\n    try {\n      const html = await this.helpers.httpRequest({\n        method: 'GET',\n        url: a.link,\n        headers: { 'User-Agent': 'Mozilla/5.0' },\n        timeout: 8000\n      });\n      const s = typeof html === 'string' ? html : JSON.stringify(html);\n      const m =\n        s.match(/<meta[^>]+property=[\"']og:image[\"'][^>]+content=[\"']([^\"']+)[\"']/i) ||\n        s.match(/<meta[^>]+content=[\"']([^\"']+)[\"'][^>]+property=[\"']og:image[\"']/i);\n      if (m) image = m[1].replace(/&amp;/g, '&');\n    } catch (e) {}\n  }\n\n  out.push({ json: { ...a, image } });\n}\n\nreturn out;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        736,
+        736
+      ],
+      "id": "200e1777-13db-409e-bd18-0a97bcbe94fa",
+      "name": "Code in JavaScript2"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "RSS Read",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "RSS Read1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "RSS Read2",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "RSS Read3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RSS Read": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RSS Read1": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "RSS Read2": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "RSS Read3": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 3
+          }
+        ]
+      ]
+    },
+    "Webhook2": {
+      "main": [
+        [
+          {
+            "node": "RSS Read",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "RSS Read1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "RSS Read2",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "RSS Read3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook3": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook4": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "HTML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTML": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript1": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respond to Webhook4": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Insert row1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger2": {
+      "main": [
+        [
+          {
+            "node": "Get row(s)1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s)1": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Create a post2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a post2": {
+      "main": [
+        [
+          {
+            "node": "Update row(s)3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Sort",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sort": {
+      "main": [
+        [
+          {
+            "node": "Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter": {
+      "main": [
+        [
+          {
+            "node": "Limit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Limit": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook1": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Create a post1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Create a post",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript2": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "timeSavedMode": "fixed",
+    "timezone": "Asia/Kolkata",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false
+  },
+  "versionId": "1e38b4c1-9c3c-4200-9aa7-bf1374b408ba",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "9b0a60e8e04ef02709c40885c97cde79600fe1a1a7371abb01760e33bf96e932"
+  },
+  "nodeGroups": [],
+  "id": "m6XlIjYRuHyw33p5",
+  "tags": []
+}
