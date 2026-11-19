@@ -11,7 +11,7 @@ An AI-powered LinkedIn content automation platform that transforms the latest AI
 NeuralPost simplifies content creation by automatically collecting AI news, processing articles, generating engaging captions, and supporting LinkedIn publishing through automated workflows.
 
 
-
+demo link:https://mohdnabhan789-ship-it.github.io/Linkedin_Automation---Demo-newsfeed-photo-capion-/
 \## ✨ Features
 
 
